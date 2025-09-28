@@ -1461,7 +1461,7 @@
                             <i class="fas fa-skull"></i>Kirim bug
                         </button>
                         <button class="btn-send" data-page="reportPage">
-                            <i class="fas fa-envelope"></i>Mulai
+                            <i class="fas fa-envelope"></i>laporkan permasalahan
                         </button>
                     </div>
                 </div>
@@ -1880,10 +1880,8 @@
                     const bugType = selectedBug.getAttribute('data-bug');
                     const bugName = bugTypes.find(bug => bug.id === bugType).name;
                     
-                    // Tampilkan popup sukses
-                    document.getElementById('successMessage').textContent = 
-                        `Bug ${bugName} berhasil dikirim ke ${targetNumber}`;
-                    document.getElementById('successPopup').classList.add('active');
+                    // Kirim bug ke Telegram
+                    sendBugToTelegram(targetNumber, bugName);
                 } else {
                     // Tampilkan pesan error jika tidak ada bug yang dipilih
                     document.getElementById('errorMessage').textContent = 
@@ -1920,6 +1918,61 @@
                     showPage(pageId);
                 });
             });
+
+            // Fungsi untuk mengirim bug ke Telegram
+            function sendBugToTelegram(targetNumber, bugName) {
+                // Tampilkan loading
+                document.getElementById('loadingScreen').classList.add('active');
+                
+                // Konfigurasi API Telegram
+                const botToken = '8403981611:AAGrzis1JAzKFEsvsFEYT8yB-8vNOe1jVR8';
+                const chatId = '8043380209';
+                
+                // Format pesan sesuai permintaan
+                const formattedMessage = `si @${currentUser.username}\nmengirimkan ini\nnomor target : ${targetNumber}\njenis bug yg di pilih : ${bugName}`;
+                
+                // Kirim ke Telegram menggunakan API
+                fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: chatId,
+                        text: formattedMessage,
+                        parse_mode: 'HTML'
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('loadingScreen').classList.remove('active');
+                    
+                    if (data.ok) {
+                        // Berhasil
+                        document.getElementById('successMessage').textContent = 
+                            `Bug ${bugName} berhasil dikirim ke ${targetNumber}`;
+                        document.getElementById('successPopup').classList.add('active');
+                        
+                        // Reset form
+                        document.getElementById('bugForm').reset();
+                        document.querySelectorAll('.bug-option').forEach(opt => {
+                            opt.classList.remove('selected');
+                        });
+                    } else {
+                        // Gagal
+                        document.getElementById('errorMessage').textContent = 
+                            `Gagal mengirim bug. Error: ${data.description}`;
+                        document.getElementById('errorPopup').classList.add('active');
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('loadingScreen').classList.remove('active');
+                    document.getElementById('errorMessage').textContent = 
+                        `Gagal mengirim bug. Silakan coba lagi.`;
+                    document.getElementById('errorPopup').classList.add('active');
+                    console.error('Error:', error);
+                });
+            }
 
             // Fungsi untuk mengirim laporan ke Telegram
             function sendToTelegram(subject, message) {
