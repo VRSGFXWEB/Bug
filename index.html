@@ -1331,6 +1331,219 @@
         .login-error.active {
             display: block;
         }
+
+        /* Gaya untuk halaman WhatsApp Unband */
+        .unband-text {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .unband-text::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(138, 43, 226, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: reflect 8s infinite linear;
+            z-index: 0;
+        }
+
+        .unband-text > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .copy-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .copy-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .copy-btn:hover::before {
+            left: 100%;
+        }
+
+        .copy-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .steps {
+            margin: 1.5rem 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .steps li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+
+        .step-number {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-weight: bold;
+        }
+
+        .whatsapp-logo {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            border-radius: 50%;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .unband-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .unband-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .unband-option::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(138, 43, 226, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .unband-option:hover::before {
+            left: 100%;
+        }
+
+        .unband-option:hover {
+            background: rgba(138, 43, 226, 0.1);
+            border-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .unband-option.selected {
+            background: rgba(138, 43, 226, 0.2);
+            border-color: var(--primary-color);
+        }
+
+        .unband-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(138, 43, 226, 0.2);
+            border-radius: 50%;
+            margin-bottom: 0.5rem;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .unband-name {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.2rem;
+        }
+
+        .unband-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .gmail-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(135deg, #EA4335, #D14836);
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gmail-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .gmail-btn:hover::before {
+            left: 100%;
+        }
+
+        .gmail-btn:hover {
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 <body>
@@ -1349,6 +1562,7 @@
         <ul class="sidebar-menu">
             <li><a href="#" class="sidebar-link active" data-page="homePage"><i class="fas fa-home"></i> Beranda</a></li>
             <li><a href="#" class="sidebar-link" data-page="bugPage"><i class="fas fa-skull"></i>Menu bug</a></li>
+            <li><a href="#" class="sidebar-link" data-page="whatsappPage"><i class="fab fa-whatsapp"></i> WhatsApp Unband</a></li>
             <li><a href="#" class="sidebar-link" data-page="reportPage"><i class="fas fa-envelope"></i> Kirim Laporan</a></li>
         </ul>
         <div class="sidebar-footer">
@@ -1460,6 +1674,9 @@
                         <button class="btn-send" data-page="bugPage">
                             <i class="fas fa-skull"></i>Kirim bug
                         </button>
+                        <button class="btn-send" data-page="whatsappPage">
+                            <i class="fab fa-whatsapp"></i>WhatsApp Unband
+                        </button>
                         <button class="btn-send" data-page="reportPage">
                             <i class="fas fa-envelope"></i>laporkan permasalahan
                         </button>
@@ -1495,6 +1712,82 @@
                             <i class="fas fa-skull"></i> KIRIM BUG
                         </button>
                     </form>
+                </div>
+            </div>
+        </div>
+
+        <!-- Halaman WhatsApp Unband -->
+        <div class="page" id="whatsappPage">
+            <div class="container">
+                <div class="card">
+                    <div class="whatsapp-logo">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--primary-color);">WhatsApp Unband</h3>
+                    
+                    <div class="form-group">
+                        <label>Pilih Jenis Unband</label>
+                        <div class="unband-options" id="unbandOptions">
+                            <div class="unband-option" data-type="spam">
+                                <div class="unband-icon">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                </div>
+                                <div class="unband-name">Unband Spam</div>
+                                <div class="unband-desc">Untuk akun yang terkena spam</div>
+                            </div>
+                            <div class="unband-option" data-type="perma">
+                                <div class="unband-icon">
+                                    <i class="fas fa-ban"></i>
+                                </div>
+                                <div class="unband-name">Unband Perma</div>
+                                <div class="unband-desc">Untuk akun yang terkena banned permanen</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Unband Spam Section -->
+                    <div id="unbandSpamSection" style="display: none;">
+                        <div class="unband-text">
+                            <p>DEAR WHATSAPP, KNP AKUN SAYA DI BLOKIR PADAHAL SAYA TIDAK SPAM DAN MELAKUKAN PELANGGARAN, MUNGKIN SISTEM WHATSAPP SEDANG EROR, TOLONG BANTUIN SECEPATNYA!, DAN BUAT AKUN SAYA AMAN AGAR TIDAK DAPAT TERKANA SPAM WHATSAPP SAYA SERING TERKENA SPAM PDAHAL SAYA TIDAK MELANGGAR KEBIJAKAN WHATSAPP, MOHON BANTUANNYA.</p>
+                        </div>
+                        
+                        <button class="copy-btn" id="copySpamText">
+                            <i class="fas fa-copy"></i> Salin Teks
+                        </button>
+                        
+                        <h4 style="margin-top: 1.5rem; color: var(--primary-color);">Langkah-langkah:</h4>
+                        <ol class="steps">
+                            <li>
+                                <div class="step-number">1</div>
+                                <span>Salin teks di atas</span>
+                            </li>
+                            <li>
+                                <div class="step-number">2</div>
+                                <span>Tempel di aplikasi WhatsApp / Tinjau</span>
+                            </li>
+                        </ol>
+                    </div>
+                    
+                    <!-- Unband Perma Section -->
+                    <div id="unbandPermaSection" style="display: none;">
+                        <div class="form-group">
+                            <label for="unbandNumber">Nomor WhatsApp yang ingin di-unband</label>
+                            <input type="text" id="unbandNumber" placeholder="+62xxxxxxxxxx">
+                        </div>
+                        
+                        <button class="gmail-btn" id="openGmail">
+                            <i class="fas fa-envelope"></i> Kirim ke Gmail Support WhatsApp
+                        </button>
+                        
+                        <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(138, 43, 226, 0.1); border-radius: 8px;">
+                            <h4 style="color: var(--primary-color); margin-bottom: 0.5rem;">
+                                <i class="fas fa-info-circle"></i> Informasi
+                            </h4>
+                            <p style="font-size: 0.9rem;">
+                                Email akan dikirim ke support@support.whatsapp.com dengan teks yang sudah disiapkan.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1568,6 +1861,10 @@
         <div class="nav-item" data-page="bugPage">
             <i class="fas fa-skull"></i>
             <span>Bug</span>
+        </div>
+        <div class="nav-item" data-page="whatsappPage">
+            <i class="fab fa-whatsapp"></i>
+            <span>Unband</span>
         </div>
         <div class="nav-item" data-page="reportPage">
             <i class="fas fa-envelope"></i>
@@ -1657,7 +1954,7 @@
             // Kredensial login yang valid
             const validCredentials = [
                 { username: "ferzz", password: "ferzz001" },
-                { username: "Dapp", password: "Dapp112" },
+                { username: "-", password: "-" },
                 { username: "Vrshack777", password: "Vrs777" }
             ];
 
@@ -2125,7 +2422,81 @@
                 // Mulai animasi mengetik
                 typeWriter();
             }
+
+            // WhatsApp Unband Functionality
+            document.querySelectorAll('.unband-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    // Hapus seleksi dari semua opsi
+                    document.querySelectorAll('.unband-option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    // Tandai opsi yang dipilih
+                    this.classList.add('selected');
+                    
+                    const unbandType = this.getAttribute('data-type');
+                    
+                    // Sembunyikan semua section
+                    document.getElementById('unbandSpamSection').style.display = 'none';
+                    document.getElementById('unbandPermaSection').style.display = 'none';
+                    
+                    // Tampilkan section yang sesuai
+                    if (unbandType === 'spam') {
+                        document.getElementById('unbandSpamSection').style.display = 'block';
+                    } else if (unbandType === 'perma') {
+                        document.getElementById('unbandPermaSection').style.display = 'block';
+                    }
+                });
+            });
+
+            // Salin teks untuk unband spam
+            document.getElementById('copySpamText').addEventListener('click', function() {
+                const spamText = "DEAR WHATSAPP, KNP AKUN SAYA DI BLOKIR PADAHAL SAYA TIDAK SPAM DAN MELAKUKAN PELANGGARAN, MUNGKIN SISTEM WHATSAPP SEDANG EROR, TOLONG BANTUIN SECEPATNYA!, DAN BUAT AKUN SAYA AMAN AGAR TIDAK DAPAT TERKANA SPAM WHATSAPP SAYA SERING TERKENA SPAM PDAHAL SAYA TIDAK MELANGGAR KEBIJAKAN WHATSAPP, MOHON BANTUANNYA.";
+                
+                // Salin teks ke clipboard
+                navigator.clipboard.writeText(spamText).then(function() {
+                    // Tampilkan notifikasi sukses
+                    document.getElementById('successMessage').textContent = 'Teks berhasil disalin!';
+                    document.getElementById('successPopup').classList.add('active');
+                }, function(err) {
+                    // Tampilkan notifikasi error
+                    document.getElementById('errorMessage').textContent = 'Gagal menyalin teks. Silakan salin secara manual.';
+                    document.getElementById('errorPopup').classList.add('active');
+                });
+            });
+
+            // Kirim email untuk unband perma - PERBAIKAN DI SINI
+            document.getElementById('openGmail').addEventListener('click', function() {
+                const unbandNumber = document.getElementById('unbandNumber').value;
+                
+                if (!unbandNumber) {
+                    document.getElementById('errorMessage').textContent = 'Silakan masukkan nomor WhatsApp terlebih dahulu.';
+                    document.getElementById('errorPopup').classList.add('active');
+                    return;
+                }
+                
+                const emailSubject = "Permohonan Unband WhatsApp";
+                const emailBody = `DEAR WHATSAPP, KNP AKUN SAYA DI BLOKIR PADAHAL SAYA TIDAK SPAM DAN MELAKUKAN PELANGGARAN, MUNGKIN SISTEM WHATSAPP SEDANG EROR, TOLONG BANTUIN SECEPATNYA!, DAN BUAT AKUN SAYA AMAN AGAR TIDAK DAPAT TERKANA SPAM WHATSAPP SAYA SERING TERKENA SPAM PDAHAL SAYA TIDAK MELANGGAR KEBIJAKAN WHATSAPP, MOHON BANTUANNYA, BERIKUT NOMOR HP SAYA ${unbandNumber}`;
+                const emailTo = "support@support.whatsapp.com";
+                
+                // Membuat intent untuk membuka aplikasi Gmail
+                const gmailIntent = `intent://send?to=${emailTo}&subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}#Intent;scheme=mailto;package=com.google.android.gm;end`;
+                
+                // Coba buka aplikasi Gmail
+                window.location.href = gmailIntent;
+                
+                // Fallback: jika aplikasi Gmail tidak tersedia, buka aplikasi email default
+                setTimeout(function() {
+                    const mailtoLink = `mailto:${emailTo}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+                    window.location.href = mailtoLink;
+                }, 500);
+                
+                // Tampilkan notifikasi sukses
+                document.getElementById('successMessage').textContent = 'Membuka aplikasi Gmail...';
+                document.getElementById('successPopup').classList.add('active');
+            });
         });
     </script>
 </body>
-</html>
+    </html>
+    
