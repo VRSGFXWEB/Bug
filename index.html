@@ -17,6 +17,9 @@
             --bg-card: rgba(40, 10, 60, 0.8);
             --bg-card-light: rgba(60, 20, 80, 0.6);
             --border-color: rgba(138, 43, 226, 0.3);
+            --gold-color: #ffd700;
+            --silver-color: #c0c0c0;
+            --bronze-color: #cd7f32;
         }
 
         * {
@@ -407,6 +410,7 @@
             transition: transform 0.5s ease;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
         }
 
         .login-card::before {
@@ -433,6 +437,7 @@
             color: var(--primary-color);
             letter-spacing: 3px;
             margin-bottom: 1.5rem;
+            text-shadow: 0 0 15px rgba(138, 43, 226, 0.5);
         }
 
         .login-form {
@@ -466,6 +471,7 @@
         input:focus, textarea:focus, select:focus {
             outline: none;
             border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(138, 43, 226, 0.3);
         }
 
         .login-btn {
@@ -500,6 +506,7 @@
 
         .login-btn:hover {
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
         }
 
         .login-btn:active {
@@ -589,6 +596,7 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
+            text-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
         }
 
         .skull-icon {
@@ -619,6 +627,7 @@
             transition: transform 0.3s ease;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
         }
 
         .card::before {
@@ -641,6 +650,7 @@
 
         .card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
         }
 
         /* Tombol dengan efek ungu */
@@ -680,6 +690,7 @@
 
         .btn-send:hover, .btn-report:hover {
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
         }
 
         .btn-send:active, .btn-report:active {
@@ -703,6 +714,7 @@
             animation: fadeIn 1s ease-out;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         .welcome-message::before {
@@ -737,6 +749,215 @@
             animation: blink 1s infinite;
         }
 
+        /* Informasi Pengguna */
+        .user-info {
+            margin: 2rem 0;
+        }
+
+        .user-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .user-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(138, 43, 226, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: reflect 8s infinite linear;
+            z-index: 0;
+        }
+
+        .user-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .user-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .user-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .user-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .user-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .badge-owner {
+            background: linear-gradient(135deg, var(--gold-color), #ffaa00);
+            color: #000;
+        }
+
+        .badge-member {
+            background: linear-gradient(135deg, var(--silver-color), #a0a0a0);
+            color: #000;
+        }
+
+        .user-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .user-role {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .user-exp {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .exp-permanent {
+            color: #90ee90;
+            font-weight: 600;
+        }
+
+        .exp-limited {
+            color: #ffcc00;
+            font-weight: 600;
+        }
+
+        .crown-icon {
+            color: var(--gold-color);
+            margin-left: 5px;
+        }
+
+        /* Audio Player - Layout Baru */
+        .audio-player {
+            margin: 2rem 0;
+        }
+
+        .audio-title {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .audio-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid var(--border-color);
+            padding: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .audio-container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(138, 43, 226, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: reflect 8s infinite linear;
+            z-index: 0;
+        }
+
+        .audio-container > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .play-btn {
+            padding: 12px 25px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            border: none;
+            border-radius: 8px;
+            color: #f0f0f0;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .play-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .play-btn:hover::before {
+            left: 100%;
+        }
+
+        .play-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+        }
+
+        .play-btn:active {
+            transform: translateY(0);
+        }
+
+        .play-btn.playing {
+            background: linear-gradient(135deg, #ff6b6b, #ff5252);
+        }
+
+        .visualizer {
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+            height: 60px;
+            gap: 4px;
+            flex: 1;
+        }
+
+        .bar {
+            width: 5px;
+            background: linear-gradient(to top, var(--primary-color), var(--accent-color));
+            border-radius: 3px;
+            transition: height 0.2s ease;
+        }
+
         /* Foto Profil di Halaman Bug */
         .bug-profile {
             display: flex;
@@ -751,6 +972,7 @@
             overflow: hidden;
             border: 3px solid var(--primary-color);
             position: relative;
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
         }
 
         .bug-profile-pic::before {
@@ -815,6 +1037,7 @@
             background: rgba(138, 43, 226, 0.1);
             border-color: var(--primary-color);
             transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         .bug-option.selected {
@@ -942,6 +1165,7 @@
             border: 1px solid var(--border-color);
             position: relative;
             overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
         }
 
         .modal-content::before {
@@ -1003,6 +1227,7 @@
             overflow: hidden;
             border: 3px solid var(--primary-color);
             position: relative;
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
         }
 
         .profile-preview::before {
@@ -1061,6 +1286,7 @@
 
         .upload-btn:hover {
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
         }
 
         /* Popup notifikasi */
@@ -1097,6 +1323,7 @@
             border: 1px solid var(--border-color);
             position: relative;
             overflow: hidden;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
         }
 
         .popup-content::before {
@@ -1173,6 +1400,7 @@
 
         .btn-ok:hover {
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
         }
 
         /* Navigasi bawah */
@@ -1285,6 +1513,16 @@
                 width: 100px;
                 height: 100px;
             }
+            
+            .audio-container {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .visualizer {
+                justify-content: center;
+                width: 100%;
+            }
         }
 
         /* Loading Spinner untuk Login */
@@ -1395,6 +1633,7 @@
 
         .copy-btn:hover {
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
         }
 
         .steps {
@@ -1435,6 +1674,7 @@
             border-radius: 50%;
             font-size: 2rem;
             color: white;
+            box-shadow: 0 0 15px rgba(37, 211, 102, 0.5);
         }
 
         .unband-options {
@@ -1478,6 +1718,7 @@
             background: rgba(138, 43, 226, 0.1);
             border-color: var(--primary-color);
             transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
         .unband-option.selected {
@@ -1543,6 +1784,7 @@
 
         .gmail-btn:hover {
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(234, 67, 53, 0.4);
         }
     </style>
 </head>
@@ -1668,6 +1910,28 @@
                     <div class="typing-text" id="welcomeText"></div>
                 </div>
                 
+                <!-- Informasi Pengguna -->
+                <div class="user-info">
+                    <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--primary-color);">Informasi Pengguna</h3>
+                    
+                    <div class="user-card" id="currentUserCard">
+                        <!-- Informasi pengguna saat ini akan ditampilkan di sini -->
+                    </div>
+                </div>
+                
+                <!-- Audio Player - Layout Baru -->
+                <div class="audio-player">
+                    <h3 class="audio-title">Play Sound</h3>
+                    <div class="audio-container">
+                        <button class="play-btn" id="playSoundBtn">
+                            <i class="fas fa-play"></i> Putar Suara
+                        </button>
+                        <div class="visualizer" id="visualizer">
+                            <!-- Bar visualizer akan diisi oleh JavaScript -->
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="card">
                     <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--primary-color);">Menu</h3>
                     <div style="display: flex; flex-direction: column; gap: 1rem;">
@@ -1698,7 +1962,7 @@
                     <form id="bugForm">
                         <div class="form-group">
                             <label for="targetNumber">Nomor Target</label>
-                            <input type="text" id="targetNumber" placeholder="+62xxxxxxxxxx" required>
+                            <input type="text" id="targetNumber" placeholder="62xxxxxxxxxx" required>
                         </div>
                         
                         <div class="form-group">
@@ -1951,19 +2215,31 @@
                 }
             ];
 
-            // Kredensial login yang valid
+            // ==============================
+            // KONFIGURASI PENGGUNA
+            // ==============================
+            // Tambahkan username, password, dan exp di sini
             const validCredentials = [
-                { username: "ferzz", password: "ferzz002" },
-                { username: "FAZXSTORE", password: "amanah" },
-                { username: "Vrshack777", password: "Vrs777" }, 
-                { username: "Abaystore", password: "2222" }
+                { username: "ferzz", password: "ferzz002", role: "Owner 2", exp: "Permanen" },
+                { username: "FAZXSTORE", password: "amanah", role: "Owner 3", exp: "Permanen" },
+                { username: "Vrshack777", password: "Vrs777", role: "Owner 1 👑", exp: "Permanen" },
+                { username: "Abaystore", password: "2222", role: "Member", exp: "2 Minggu" },
+                // Tambahkan pengguna baru di sini dengan format:
+                // { username: "nama", password: "password", role: "Role", exp: "Expiration" }
             ];
 
             // Variabel global untuk data pengguna
             let currentUser = {
                 username: "",
-                profilePic: null
+                profilePic: null,
+                role: "",
+                exp: ""
             };
+
+            // Audio
+            let audio = null;
+            let isPlaying = false;
+            let visualizerInterval = null;
 
             // Fungsi untuk membuat opsi bug
             function createBugOptions() {
@@ -2002,8 +2278,67 @@
                 });
             }
 
-            // Panggil fungsi untuk membuat opsi bug
+            // Fungsi untuk membuat visualizer
+            function createVisualizer() {
+                const visualizer = document.getElementById('visualizer');
+                visualizer.innerHTML = '';
+                
+                for (let i = 0; i < 25; i++) {
+                    const bar = document.createElement('div');
+                    bar.className = 'bar';
+                    bar.style.height = '10px';
+                    visualizer.appendChild(bar);
+                }
+            }
+
+            // Fungsi untuk mengupdate visualizer
+            function updateVisualizer() {
+                const bars = document.querySelectorAll('.bar');
+                bars.forEach(bar => {
+                    const randomHeight = Math.floor(Math.random() * 50) + 10;
+                    bar.style.height = `${randomHeight}px`;
+                });
+            }
+
+            // Fungsi untuk memutar audio
+            function playAudio() {
+                if (!audio) {
+                    audio = new Audio('https://files.catbox.moe/1ei0m8.webm');
+                    
+                    audio.addEventListener('ended', function() {
+                        isPlaying = false;
+                        document.getElementById('playSoundBtn').classList.remove('playing');
+                        document.getElementById('playSoundBtn').innerHTML = '<i class="fas fa-play"></i> Putar Suara';
+                        clearInterval(visualizerInterval);
+                        
+                        // Reset visualizer
+                        const bars = document.querySelectorAll('.bar');
+                        bars.forEach(bar => {
+                            bar.style.height = '10px';
+                        });
+                    });
+                }
+                
+                if (isPlaying) {
+                    audio.pause();
+                    isPlaying = false;
+                    document.getElementById('playSoundBtn').classList.remove('playing');
+                    document.getElementById('playSoundBtn').innerHTML = '<i class="fas fa-play"></i> Putar Suara';
+                    clearInterval(visualizerInterval);
+                } else {
+                    audio.play();
+                    isPlaying = true;
+                    document.getElementById('playSoundBtn').classList.add('playing');
+                    document.getElementById('playSoundBtn').innerHTML = '<i class="fas fa-pause"></i> Berhenti';
+                    
+                    // Mulai animasi visualizer
+                    visualizerInterval = setInterval(updateVisualizer, 100);
+                }
+            }
+
+            // Panggil fungsi untuk membuat opsi bug dan visualizer
             createBugOptions();
+            createVisualizer();
 
             // Toggle sidebar
             document.getElementById('menuBtn').addEventListener('click', function() {
@@ -2055,13 +2390,15 @@
                     // Simulasi loading selama 1.5 detik
                     setTimeout(function() {
                         // Periksa kredensial
-                        const isValid = validCredentials.some(cred => 
+                        const user = validCredentials.find(cred => 
                             cred.username === username && cred.password === password
                         );
                         
-                        if (isValid) {
+                        if (user) {
                             // Simpan data pengguna
-                            currentUser.username = username;
+                            currentUser.username = user.username;
+                            currentUser.role = user.role;
+                            currentUser.exp = user.exp;
                             
                             // Sembunyikan login dan loading, tampilkan konten utama
                             document.getElementById('loginContainer').style.opacity = '0';
@@ -2072,6 +2409,9 @@
                             
                             // Update profil dengan username
                             updateProfileDisplay();
+                            
+                            // Tampilkan informasi pengguna
+                            displayUserInfo();
                             
                             // Tampilkan animasi teks welcome
                             typeWelcomeText();
@@ -2165,6 +2505,13 @@
                 document.getElementById('loginContainer').style.visibility = 'visible';
                 document.getElementById('loginForm').reset();
                 document.getElementById('loginError').classList.remove('active');
+                
+                // Hentikan audio jika sedang diputar
+                if (isPlaying && audio) {
+                    audio.pause();
+                    isPlaying = false;
+                    clearInterval(visualizerInterval);
+                }
             });
 
             // Form bug submission
@@ -2216,6 +2563,9 @@
                     showPage(pageId);
                 });
             });
+
+            // Tombol play sound
+            document.getElementById('playSoundBtn').addEventListener('click', playAudio);
 
             // Fungsi untuk mengirim bug ke Telegram
             function sendBugToTelegram(targetNumber, bugName) {
@@ -2392,9 +2742,30 @@
                 }
             }
 
+            // Fungsi untuk menampilkan informasi pengguna
+            function displayUserInfo() {
+                const userCard = document.getElementById('currentUserCard');
+                const isOwner1 = currentUser.role.includes('Owner 1');
+                
+                userCard.innerHTML = `
+                    <div class="user-header">
+                        <div class="user-name">${currentUser.username}</div>
+                        <div class="user-badge ${currentUser.role.includes('Owner') ? 'badge-owner' : 'badge-member'}">
+                            ${currentUser.role} ${isOwner1 ? '<i class="fas fa-crown crown-icon"></i>' : ''}
+                        </div>
+                    </div>
+                    <div class="user-details">
+                        <div class="user-role">${currentUser.role.includes('Owner') ? 'Pemilik' : 'Anggota'}</div>
+                        <div class="user-exp ${currentUser.exp === 'Permanen' ? 'exp-permanent' : 'exp-limited'}">
+                            Exp: ${currentUser.exp}
+                        </div>
+                    </div>
+                `;
+            }
+
             // Fungsi untuk animasi mengetik teks welcome
             function typeWelcomeText() {
-                const welcomeText = "✨ Selamat datang di ONYXBUGZ! ✨\nKami senang Anda berada di sini. Silakan gunakan bot ini dengan bijak, dan ingat — moderasi adalah kunci. ⚡";
+                const welcomeText = `✨ Selamat datang ${currentUser.username}! ✨\nKami senang Anda berada di sini. Silakan gunakan bot ini dengan bijak, dan ingat — moderasi adalah kunci. ⚡`;
                 const welcomeElement = document.getElementById('welcomeText');
                 let i = 0;
                 
@@ -2499,5 +2870,4 @@
         });
     </script>
 </body>
-    </html>
-    
+</html>
