@@ -1242,19 +1242,6 @@
             box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
         }
 
-        .profile-preview::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-            transform: rotate(45deg);
-            animation: reflect 4s infinite linear;
-            z-index: 1;
-        }
-
         .profile-preview img {
             width: 100%;
             height: 100%;
@@ -1800,6 +1787,90 @@
         }
 
         /* ============================== */
+        /* STYLE UNTUK CHAT GLOBAL */
+        /* ============================== */
+        .chat-container {
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: rgba(20, 5, 40, 0.7);
+            border-radius: 10px;
+            border: 1px solid var(--border-color);
+        }
+
+        .chat-message {
+            margin-bottom: 1rem;
+            padding: 0.8rem;
+            background: rgba(138, 43, 226, 0.1);
+            border-radius: 10px;
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .message-sender {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .message-time {
+            color: var(--text-muted);
+        }
+
+        .message-content {
+            word-wrap: break-word;
+        }
+
+        .message-image {
+            max-width: 100%;
+            border-radius: 8px;
+            margin-top: 0.5rem;
+        }
+
+        .chat-input-container {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-color);
+        }
+
+        .chat-send-btn, .chat-upload-btn {
+            padding: 10px 15px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            border: none;
+            border-radius: 8px;
+            color: #f0f0f0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chat-send-btn:hover, .chat-upload-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+        }
+
+        .image-preview {
+            max-width: 100px;
+            max-height: 100px;
+            border-radius: 8px;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        /* ============================== */
         /* STYLE UNTUK ADMIN/MEMBER MANAGEMENT */
         /* ============================== */
         .admin-section {
@@ -1994,6 +2065,7 @@
             <li><a href="#" class="sidebar-link" data-page="bugPage"><i class="fas fa-skull"></i>Menu bug</a></li>
             <li><a href="#" class="sidebar-link" data-page="whatsappPage"><i class="fab fa-whatsapp"></i> WhatsApp Unband</a></li>
             <li><a href="#" class="sidebar-link" data-page="reportPage"><i class="fas fa-envelope"></i> Kirim Laporan</a></li>
+            <li><a href="#" class="sidebar-link" data-page="chatPage"><i class="fas fa-comments"></i> Chat Global</a></li>
             <li id="adminMenu" style="display: none;"><a href="#" class="sidebar-link" data-page="adminPage"><i class="fas fa-users-cog"></i> Kelola User</a></li>
         </ul>
         <div class="sidebar-footer">
@@ -2176,6 +2248,9 @@
                         <button class="btn-send" data-page="reportPage">
                             <i class="fas fa-envelope"></i>laporkan permasalahan
                         </button>
+                        <button class="btn-send" data-page="chatPage">
+                            <i class="fas fa-comments"></i>Chat Global
+                        </button>
                         <button class="btn-send" id="adminPanelBtnMain" style="display: none;">
                             <i class="fas fa-users-cog"></i>Admin Panel
                         </button>
@@ -2326,6 +2401,32 @@
             </div>
         </div>
 
+        <!-- Halaman Chat Global -->
+        <div class="page" id="chatPage">
+            <div class="container">
+                <div class="card">
+                    <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--primary-color);">Chat Global</h3>
+                    
+                    <div class="chat-container" id="chatContainer">
+                        <!-- Pesan chat akan ditampilkan di sini -->
+                    </div>
+                    
+                    <div class="chat-input-container">
+                        <input type="text" class="chat-input" id="chatInput" placeholder="Ketik pesan...">
+                        <button class="chat-upload-btn" id="chatUploadBtn">
+                            <i class="fas fa-image"></i>
+                        </button>
+                        <button class="chat-send-btn" id="chatSendBtn">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    
+                    <input type="file" id="chatImageUpload" accept="image/*" style="display: none;">
+                    <img id="imagePreview" class="image-preview" src="" alt="Preview">
+                </div>
+            </div>
+        </div>
+
         <!-- Halaman Admin -->
         <div class="page" id="adminPage">
             <div class="container">
@@ -2423,6 +2524,10 @@
             <i class="fas fa-envelope"></i>
             <span>Laporan</span>
         </div>
+        <div class="nav-item" data-page="chatPage">
+            <i class="fas fa-comments"></i>
+            <span>Chat</span>
+        </div>
         <div class="nav-item" id="adminNavItem" style="display: none;" data-page="adminPage">
             <i class="fas fa-users-cog"></i>
             <span>Admin</span>
@@ -2432,15 +2537,17 @@
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
         // ==============================
-        // SISTEM AUTO-SAVE DENGAN EXPIRY TIME
+        // SISTEM AUTO-SAVE DENGAN EXPIRY TIME DAN CHAT
         // ==============================
         class AutoSaveManager {
             constructor() {
-                this.STORAGE_KEY = 'onyxbugz_users';
+                this.USERS_STORAGE_KEY = 'onyxbugz_users';
+                this.CHAT_STORAGE_KEY = 'onyxbugz_chat';
                 this.init();
             }
 
             init() {
+                // Inisialisasi data pengguna default
                 if (!this.getUsers().length) {
                     const defaultUsers = [
                         { 
@@ -2503,6 +2610,11 @@
                     this.saveUsers(defaultUsers);
                 }
                 
+                // Inisialisasi chat jika belum ada
+                if (!this.getChatMessages().length) {
+                    this.saveChatMessages([]);
+                }
+                
                 // Bersihkan user yang expired setiap kali sistem dimulai
                 this.cleanExpiredUsers();
             }
@@ -2550,9 +2662,12 @@
                 }
             }
 
+            // ==============================
+            // MANAJEMEN PENGGUNA
+            // ==============================
             getUsers() {
                 try {
-                    const users = localStorage.getItem(this.STORAGE_KEY);
+                    const users = localStorage.getItem(this.USERS_STORAGE_KEY);
                     return users ? JSON.parse(users) : [];
                 } catch (error) {
                     console.error('Error loading users:', error);
@@ -2562,7 +2677,7 @@
 
             saveUsers(users) {
                 try {
-                    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(users));
+                    localStorage.setItem(this.USERS_STORAGE_KEY, JSON.stringify(users));
                     return true;
                 } catch (error) {
                     console.error('Error saving users:', error);
@@ -2656,6 +2771,56 @@
                 }
                 
                 return user;
+            }
+
+            // ==============================
+            // MANAJEMEN CHAT
+            // ==============================
+            getChatMessages() {
+                try {
+                    const messages = localStorage.getItem(this.CHAT_STORAGE_KEY);
+                    return messages ? JSON.parse(messages) : [];
+                } catch (error) {
+                    console.error('Error loading chat messages:', error);
+                    return [];
+                }
+            }
+
+            saveChatMessages(messages) {
+                try {
+                    localStorage.setItem(this.CHAT_STORAGE_KEY, JSON.stringify(messages));
+                    return true;
+                } catch (error) {
+                    console.error('Error saving chat messages:', error);
+                    return false;
+                }
+            }
+
+            addChatMessage(messageData) {
+                const messages = this.getChatMessages();
+                
+                const newMessage = {
+                    id: Date.now().toString(),
+                    sender: messageData.sender,
+                    senderRole: messageData.senderRole,
+                    content: messageData.content,
+                    image: messageData.image || null,
+                    timestamp: new Date().toISOString()
+                };
+
+                messages.push(newMessage);
+                
+                // Simpan maksimal 100 pesan terbaru
+                if (messages.length > 100) {
+                    messages.splice(0, messages.length - 100);
+                }
+                
+                const success = this.saveChatMessages(messages);
+                
+                return {
+                    success: success,
+                    message: success ? 'Pesan berhasil dikirim' : 'Gagal mengirim pesan'
+                };
             }
         }
 
@@ -2761,6 +2926,7 @@
             createBugOptions();
             createVisualizer();
             setupEventListeners();
+            loadChatMessages();
         });
 
         function createBugOptions() {
@@ -2875,6 +3041,11 @@
                         item.classList.remove('active');
                     });
                     this.classList.add('active');
+                    
+                    // Jika pindah ke halaman chat, muat ulang pesan
+                    if (pageId === 'chatPage') {
+                        loadChatMessages();
+                    }
                 });
             });
 
@@ -3109,6 +3280,11 @@
                 btn.addEventListener('click', function() {
                     const pageId = this.getAttribute('data-page');
                     showPage(pageId);
+                    
+                    // Jika pindah ke halaman chat, muat ulang pesan
+                    if (pageId === 'chatPage') {
+                        loadChatMessages();
+                    }
                 });
             });
 
@@ -3117,6 +3293,11 @@
                 item.addEventListener('click', function() {
                     const pageId = this.getAttribute('data-page');
                     showPage(pageId);
+                    
+                    // Jika pindah ke halaman chat, muat ulang pesan
+                    if (pageId === 'chatPage') {
+                        loadChatMessages();
+                    }
                 });
             });
 
@@ -3185,6 +3366,34 @@
                 document.getElementById('successPopup').classList.add('active');
             });
 
+            // ==============================
+            // FUNGSI CHAT GLOBAL
+            // ==============================
+            document.getElementById('chatSendBtn').addEventListener('click', sendChatMessage);
+            
+            document.getElementById('chatInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    sendChatMessage();
+                }
+            });
+            
+            document.getElementById('chatUploadBtn').addEventListener('click', function() {
+                document.getElementById('chatImageUpload').click();
+            });
+            
+            document.getElementById('chatImageUpload').addEventListener('change', function(e) {
+                if (e.target.files && e.target.files[0]) {
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        document.getElementById('imagePreview').src = e.target.result;
+                        document.getElementById('imagePreview').style.display = 'block';
+                    }
+                    
+                    reader.readAsDataURL(e.target.files[0]);
+                }
+            });
+
             // Tutup popup
             document.getElementById('closePopup').addEventListener('click', function() {
                 document.getElementById('successPopup').classList.remove('active');
@@ -3193,6 +3402,80 @@
             document.getElementById('closeErrorPopup').addEventListener('click', function() {
                 document.getElementById('errorPopup').classList.remove('active');
             });
+        }
+
+        // ==============================
+        // FUNGSI CHAT
+        // ==============================
+        function loadChatMessages() {
+            const chatContainer = document.getElementById('chatContainer');
+            const messages = autoSaveManager.getChatMessages();
+            
+            chatContainer.innerHTML = '';
+            
+            if (messages.length === 0) {
+                chatContainer.innerHTML = '<p style="text-align: center; color: var(--text-muted);">Belum ada pesan</p>';
+                return;
+            }
+            
+            messages.forEach(message => {
+                const messageElement = document.createElement('div');
+                messageElement.className = 'chat-message';
+                
+                const time = new Date(message.timestamp);
+                const timeString = time.toLocaleTimeString('id-ID', { 
+                    hour: '2-digit', 
+                    minute: '2-digit' 
+                });
+                
+                let messageContent = `
+                    <div class="message-header">
+                        <span class="message-sender">${message.sender} (${message.senderRole})</span>
+                        <span class="message-time">${timeString}</span>
+                    </div>
+                    <div class="message-content">${message.content}</div>
+                `;
+                
+                if (message.image) {
+                    messageContent += `<img src="${message.image}" class="message-image" alt="Gambar pesan">`;
+                }
+                
+                messageElement.innerHTML = messageContent;
+                chatContainer.appendChild(messageElement);
+            });
+            
+            // Scroll ke bawah
+            chatContainer.scrollTop = chatContainer.scrollHeight;
+        }
+
+        function sendChatMessage() {
+            const chatInput = document.getElementById('chatInput');
+            const imagePreview = document.getElementById('imagePreview');
+            const messageContent = chatInput.value.trim();
+            const imageData = imagePreview.style.display !== 'none' ? imagePreview.src : null;
+            
+            if (!messageContent && !imageData) {
+                return;
+            }
+            
+            const result = autoSaveManager.addChatMessage({
+                sender: currentUser.username,
+                senderRole: currentUser.role,
+                content: messageContent || '(Gambar)',
+                image: imageData
+            });
+            
+            if (result.success) {
+                chatInput.value = '';
+                imagePreview.style.display = 'none';
+                imagePreview.src = '';
+                document.getElementById('chatImageUpload').value = '';
+                
+                loadChatMessages();
+            } else {
+                document.getElementById('errorMessage').textContent = result.message;
+                document.getElementById('errorPopup').classList.add('active');
+            }
         }
 
         // ==============================
