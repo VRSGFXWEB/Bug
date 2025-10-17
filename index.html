@@ -853,6 +853,11 @@
             font-weight: 600;
         }
 
+        .exp-expired {
+            color: #ff6b6b;
+            font-weight: 600;
+        }
+
         .crown-icon {
             color: var(--gold-color);
             margin-left: 5px;
@@ -1938,8 +1943,34 @@
             margin-bottom: 1rem;
         }
 
+        /* Style untuk input waktu */
+        .time-input-group {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .expired-user {
+            opacity: 0.6;
+            background: rgba(255, 0, 0, 0.1) !important;
+            border: 1px solid #ff6b6b !important;
+        }
+
+        .expired-badge {
+            background: #ff6b6b !important;
+            color: white !important;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            margin-left: 5px;
+        }
+
         @media (max-width: 600px) {
             .form-row {
+                grid-template-columns: 1fr;
+            }
+            .time-input-group {
                 grid-template-columns: 1fr;
             }
         }
@@ -2048,13 +2079,14 @@
                 </div>
                 <div class="form-group">
                     <label for="newExp">Masa Aktif</label>
-                    <select id="newExp" required>
-                        <option value="">Pilih Masa Aktif</option>
-                        <option value="1 Minggu">1 Minggu</option>
-                        <option value="2 Minggu">2 Minggu</option>
-                        <option value="1 Bulan">1 Bulan</option>
-                        <option value="Permanen">Permanen</option>
-                    </select>
+                    <div class="time-input-group">
+                        <input type="number" id="expNumber" placeholder="1" min="1" value="1" style="display: block;">
+                        <select id="expUnit" required>
+                            <option value="minggu">Minggu</option>
+                            <option value="bulan">Bulan</option>
+                            <option value="permanen">Permanen</option>
+                        </select>
+                    </div>
                 </div>
                 <button type="submit" class="login-btn" style="margin-top: 1.5rem;">Tambah Pengguna</button>
             </form>
@@ -2324,12 +2356,14 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="quickExp">Masa Aktif</label>
-                                    <select id="quickExp" required>
-                                        <option value="1 Minggu">1 Minggu</option>
-                                        <option value="2 Minggu">2 Minggu</option>
-                                        <option value="1 Bulan">1 Bulan</option>
-                                        <option value="Permanen">Permanen</option>
-                                    </select>
+                                    <div class="time-input-group">
+                                        <input type="number" id="quickExpNumber" placeholder="1" min="1" value="1" style="display: block;">
+                                        <select id="quickExpUnit" required>
+                                            <option value="minggu">Minggu</option>
+                                            <option value="bulan">Bulan</option>
+                                            <option value="permanen">Permanen</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                             <button type="submit" class="login-btn">Tambah Pengguna</button>
@@ -2398,7 +2432,7 @@
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
         // ==============================
-        // SISTEM AUTO-SAVE KE LOCAL STORAGE
+        // SISTEM AUTO-SAVE DENGAN EXPIRY TIME
         // ==============================
         class AutoSaveManager {
             constructor() {
@@ -2407,18 +2441,112 @@
             }
 
             init() {
-                // Inisialisasi data jika belum ada
                 if (!this.getUsers().length) {
                     const defaultUsers = [
-                        { username: "ferzz", password: "102013", role: "Owner 2", exp: "Permanen" },
-                        { username: "rafzz", password: "rafzz123", role: "Member", exp: "Permanen" },
-                        { username: "FAZXSTORE", password: "amanah", role: "Owner 3", exp: "Permanen" },
-                        { username: "Vrshack777", password: "Vrs777", role: "Owner 1 👑", exp: "Permanen" },
-                        { username: "Abaystore", password: "2222", role: "Member", exp: "2 Minggu" },
-                        { username: "bautista", password: "111", role: "Member", exp: "3 Minggu" },
-                        { username: "Tarooooo", password: "TaroTaroTaro123", role: "Member", exp: "Permanen" }
+                        { 
+                            username: "ferzz", 
+                            password: "102013", 
+                            role: "Owner 2", 
+                            exp: "Permanen",
+                            createdAt: new Date().toISOString(),
+                            expiresAt: null
+                        },
+                        { 
+                            username: "rafzz", 
+                            password: "rafzz123", 
+                            role: "Member", 
+                            exp: "Permanen",
+                            createdAt: new Date().toISOString(),
+                            expiresAt: null
+                        },
+                        { 
+                            username: "FAZXSTORE", 
+                            password: "amanah", 
+                            role: "Owner 3", 
+                            exp: "Permanen",
+                            createdAt: new Date().toISOString(),
+                            expiresAt: null
+                        },
+                        { 
+                            username: "Vrshack777", 
+                            password: "Vrs777", 
+                            role: "Owner 1 👑", 
+                            exp: "Permanen",
+                            createdAt: new Date().toISOString(),
+                            expiresAt: null
+                        },
+                        { 
+                            username: "Abaystore", 
+                            password: "2222", 
+                            role: "Member", 
+                            exp: "2 Minggu",
+                            createdAt: new Date().toISOString(),
+                            expiresAt: this.calculateExpiryDate(2, 'minggu')
+                        },
+                        { 
+                            username: "bautista", 
+                            password: "111", 
+                            role: "Member", 
+                            exp: "3 Minggu",
+                            createdAt: new Date().toISOString(),
+                            expiresAt: this.calculateExpiryDate(3, 'minggu')
+                        },
+                        { 
+                            username: "Tarooooo", 
+                            password: "TaroTaroTaro123", 
+                            role: "Member", 
+                            exp: "Permanen",
+                            createdAt: new Date().toISOString(),
+                            expiresAt: null
+                        }
                     ];
                     this.saveUsers(defaultUsers);
+                }
+                
+                // Bersihkan user yang expired setiap kali sistem dimulai
+                this.cleanExpiredUsers();
+            }
+
+            calculateExpiryDate(amount, unit) {
+                const now = new Date();
+                let expiryDate = new Date(now);
+                
+                switch(unit) {
+                    case 'minggu':
+                        expiryDate.setDate(now.getDate() + (amount * 7));
+                        break;
+                    case 'bulan':
+                        expiryDate.setMonth(now.getMonth() + amount);
+                        break;
+                    case 'permanen':
+                        return null; // Tidak ada expiry
+                    default:
+                        return null;
+                }
+                
+                return expiryDate.toISOString();
+            }
+
+            formatExpiryDisplay(amount, unit) {
+                if (unit === 'permanen') return 'Permanen';
+                return `${amount} ${unit.charAt(0).toUpperCase() + unit.slice(1)}`;
+            }
+
+            isUserExpired(user) {
+                if (!user.expiresAt || user.exp === 'Permanen') return false;
+                
+                const now = new Date();
+                const expiryDate = new Date(user.expiresAt);
+                return now > expiryDate;
+            }
+
+            cleanExpiredUsers() {
+                const users = this.getUsers();
+                const activeUsers = users.filter(user => !this.isUserExpired(user));
+                
+                if (activeUsers.length !== users.length) {
+                    this.saveUsers(activeUsers);
+                    console.log('Expired users cleaned up');
                 }
             }
 
@@ -2450,7 +2578,23 @@
                     return { success: false, message: 'Username sudah ada' };
                 }
 
-                users.push(userData);
+                // Hitung expiry date
+                let expiresAt = null;
+                if (userData.expUnit !== 'permanen') {
+                    expiresAt = this.calculateExpiryDate(userData.expNumber, userData.expUnit);
+                }
+
+                const newUser = {
+                    username: userData.username,
+                    password: userData.password,
+                    role: userData.role === 'owner' ? 'Owner' : 
+                          userData.role === 'admin' ? 'Admin' : 'Member',
+                    exp: this.formatExpiryDisplay(userData.expNumber, userData.expUnit),
+                    createdAt: new Date().toISOString(),
+                    expiresAt: expiresAt
+                };
+
+                users.push(newUser);
                 const success = this.saveUsers(users);
                 
                 return {
@@ -2476,7 +2620,12 @@
                 };
             }
 
-            deleteUser(username) {
+            deleteUser(username, currentUser) {
+                // Hanya Owner 1 yang bisa hapus user
+                if (currentUser.username !== "Vrshack777" || !currentUser.role.includes("Owner 1")) {
+                    return { success: false, message: 'Hanya Owner 1 yang bisa menghapus user' };
+                }
+
                 const users = this.getUsers();
                 const filteredUsers = users.filter(u => u.username !== username);
                 
@@ -2490,6 +2639,23 @@
                     success: success,
                     message: success ? 'User berhasil dihapus' : 'Gagal menghapus user'
                 };
+            }
+
+            // Cek apakah user masih aktif (belum expired)
+            validateUser(username, password) {
+                this.cleanExpiredUsers(); // Bersihkan dulu yang expired
+                
+                const users = this.getUsers();
+                const user = users.find(u => u.username === username && u.password === password);
+                
+                if (!user) return null;
+                
+                // Cek jika user expired
+                if (this.isUserExpired(user)) {
+                    return null;
+                }
+                
+                return user;
             }
         }
 
@@ -2712,6 +2878,27 @@
                 });
             });
 
+            // Handle perubahan dropdown waktu
+            document.getElementById('expUnit').addEventListener('change', function() {
+                const numberInput = document.getElementById('expNumber');
+                if (this.value === 'permanen') {
+                    numberInput.style.display = 'none';
+                    numberInput.value = '1';
+                } else {
+                    numberInput.style.display = 'block';
+                }
+            });
+
+            document.getElementById('quickExpUnit').addEventListener('change', function() {
+                const numberInput = document.getElementById('quickExpNumber');
+                if (this.value === 'permanen') {
+                    numberInput.style.display = 'none';
+                    numberInput.value = '1';
+                } else {
+                    numberInput.style.display = 'block';
+                }
+            });
+
             // Login form submission
             document.getElementById('loginForm').addEventListener('submit', function(e) {
                 e.preventDefault();
@@ -2725,10 +2912,8 @@
                     document.getElementById('loginBlurBg').classList.add('active');
                     
                     setTimeout(function() {
-                        const users = autoSaveManager.getUsers();
-                        const user = users.find(cred => 
-                            cred.username === username && cred.password === password
-                        );
+                        // Gunakan validateUser yang baru
+                        const user = autoSaveManager.validateUser(username, password);
                         
                         if (user) {
                             currentUser.username = user.username;
@@ -2746,6 +2931,7 @@
                             typeWelcomeText();
                             checkAdminAccess();
                         } else {
+                            document.getElementById('loginError').textContent = 'Username/password salah atau akun sudah expired!';
                             document.getElementById('loginError').classList.add('active');
                             document.getElementById('loginLoading').classList.remove('active');
                             document.getElementById('loginBlurBg').classList.remove('active');
@@ -2839,20 +3025,23 @@
                 const username = document.getElementById('quickUsername').value;
                 const password = document.getElementById('quickPassword').value;
                 const role = document.getElementById('quickRole').value;
-                const exp = document.getElementById('quickExp').value;
-                
-                const roleDisplay = role === 'owner' ? 'Owner' : 
-                                  role === 'admin' ? 'Admin' : 'Member';
+                const expNumber = document.getElementById('quickExpNumber').value;
+                const expUnit = document.getElementById('quickExpUnit').value;
                 
                 const result = autoSaveManager.addUser({
                     username: username,
                     password: password,
-                    role: roleDisplay,
-                    exp: exp
+                    role: role,
+                    expNumber: parseInt(expNumber),
+                    expUnit: expUnit
                 });
                 
                 if (result.success) {
                     document.getElementById('quickAddUserForm').reset();
+                    // Reset form waktu
+                    document.getElementById('quickExpNumber').style.display = 'block';
+                    document.getElementById('quickExpUnit').value = 'minggu';
+                    
                     loadUserList();
                     
                     document.getElementById('successMessage').textContent = result.message;
@@ -3108,12 +3297,18 @@
 
         function checkAdminAccess() {
             const isAdmin = currentUser.role.includes('Owner') || currentUser.role.includes('Admin');
+            const isOwner1 = currentUser.username === "Vrshack777" && currentUser.role.includes("Owner 1");
             
             if (isAdmin) {
                 document.getElementById('adminMenu').style.display = 'block';
                 document.getElementById('adminMenuItem').style.display = 'block';
                 document.getElementById('adminPanelBtnMain').style.display = 'block';
                 document.getElementById('adminNavItem').style.display = 'flex';
+                
+                // Jika Owner 1, tampilkan info khusus
+                if (isOwner1) {
+                    document.getElementById('profileRole').textContent += ' (Full Access)';
+                }
             }
         }
 
@@ -3137,23 +3332,32 @@
             
             users.forEach(user => {
                 const userItem = document.createElement('div');
-                userItem.className = 'user-item';
+                userItem.className = `user-item ${autoSaveManager.isUserExpired(user) ? 'expired-user' : ''}`;
                 
                 const roleClass = user.role.includes('Owner') ? 'role-owner' : 
                                 user.role.includes('Admin') ? 'role-admin' : 'role-member';
                 
+                const isExpired = autoSaveManager.isUserExpired(user);
+                const expiredBadge = isExpired ? '<span class="expired-badge">EXPIRED</span>' : '';
+                
+                // Hanya tampilkan tombol hapus untuk Owner 1
+                const deleteButton = (currentUser.username === "Vrshack777" && currentUser.role.includes("Owner 1")) 
+                    ? `<button class="btn-action btn-delete" onclick="deleteUser('${user.username}')">
+                          <i class="fas fa-trash"></i> Hapus
+                       </button>`
+                    : '';
+                
                 userItem.innerHTML = `
                     <div class="user-item-info">
-                        <div class="user-item-name">${user.username}</div>
+                        <div class="user-item-name">${user.username} ${expiredBadge}</div>
                         <div class="user-item-details">
                             <span class="role-badge ${roleClass}">${user.role}</span>
                             <span style="margin-left: 10px;">Exp: ${user.exp}</span>
+                            ${isExpired ? '<span style="margin-left: 10px; color: #ff6b6b;">(Tidak Aktif)</span>' : ''}
                         </div>
                     </div>
                     <div class="user-item-actions">
-                        <button class="btn-action btn-delete" onclick="deleteUser('${user.username}')">
-                            <i class="fas fa-trash"></i> Hapus
-                        </button>
+                        ${deleteButton}
                     </div>
                 `;
                 
@@ -3169,7 +3373,7 @@
             }
             
             if (confirm(`Apakah Anda yakin ingin menghapus user ${username}?`)) {
-                const result = autoSaveManager.deleteUser(username);
+                const result = autoSaveManager.deleteUser(username, currentUser);
                 
                 if (result.success) {
                     loadUserList();
@@ -3275,6 +3479,11 @@
                 console.error('Error:', error);
             });
         }
+
+        // Auto cleanup setiap 1 jam
+        setInterval(() => {
+            autoSaveManager.cleanExpiredUsers();
+        }, 60 * 60 * 1000);
 
         // Export fungsi untuk digunakan di HTML
         window.deleteUser = deleteUser;
