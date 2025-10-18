@@ -2551,60 +2551,14 @@
                 if (!this.getUsers().length) {
                     const defaultUsers = [
                         { 
-                            username: "ferzz", 
-                            password: "102013", 
-                            role: "Owner 2", 
-                            exp: "Permanen",
-                            createdAt: new Date().toISOString(),
-                            expiresAt: null
-                        },
-                        { 
-                            username: "rafzz", 
-                            password: "rafzz123", 
-                            role: "Member", 
-                            exp: "Permanen",
-                            createdAt: new Date().toISOString(),
-                            expiresAt: null
-                        },
-                        { 
-                            username: "FAZXSTORE", 
-                            password: "amanah", 
-                            role: "Owner 3", 
-                            exp: "Permanen",
-                            createdAt: new Date().toISOString(),
-                            expiresAt: null
-                        },
-                        { 
+                        
                             username: "Vrshack777", 
                             password: "Vrs777", 
                             role: "Owner 1 👑", 
                             exp: "Permanen",
                             createdAt: new Date().toISOString(),
                             expiresAt: null
-                        },
-                        { 
-                            username: "Abaystore", 
-                            password: "2222", 
-                            role: "Member", 
-                            exp: "2 Minggu",
-                            createdAt: new Date().toISOString(),
-                            expiresAt: this.calculateExpiryDate(2, 'minggu')
-                        },
-                        { 
-                            username: "bautista", 
-                            password: "111", 
-                            role: "Member", 
-                            exp: "3 Minggu",
-                            createdAt: new Date().toISOString(),
-                            expiresAt: this.calculateExpiryDate(3, 'minggu')
-                        },
-                        { 
-                            username: "Tarooooo", 
-                            password: "TaroTaroTaro123", 
-                            role: "Member", 
-                            exp: "Permanen",
-                            createdAt: new Date().toISOString(),
-                            expiresAt: null
+   
                         }
                     ];
                     this.saveUsers(defaultUsers);
@@ -2615,8 +2569,8 @@
                     this.saveChatMessages([]);
                 }
                 
-                // Bersihkan user yang expired setiap kali sistem dimulai
-                this.cleanExpiredUsers();
+                // Setup auto-delete untuk user yang expired
+                this.setupAutoDelete();
             }
 
             calculateExpiryDate(amount, unit) {
@@ -2652,13 +2606,37 @@
                 return now > expiryDate;
             }
 
-            cleanExpiredUsers() {
+            // SISTEM AUTO-DELETE YANG BARU - HAPUS USER TEPAT WAKTUNYA
+            setupAutoDelete() {
                 const users = this.getUsers();
-                const activeUsers = users.filter(user => !this.isUserExpired(user));
+                const now = new Date();
                 
-                if (activeUsers.length !== users.length) {
-                    this.saveUsers(activeUsers);
-                    console.log('Expired users cleaned up');
+                users.forEach(user => {
+                    if (user.expiresAt && !this.isUserExpired(user)) {
+                        const expiryDate = new Date(user.expiresAt);
+                        const timeUntilExpiry = expiryDate - now;
+                        
+                        if (timeUntilExpiry > 0) {
+                            // Set timeout untuk hapus user tepat ketika expired
+                            setTimeout(() => {
+                                this.deleteExpiredUser(user.username);
+                            }, timeUntilExpiry);
+                        }
+                    }
+                });
+            }
+
+            deleteExpiredUser(username) {
+                const users = this.getUsers();
+                const updatedUsers = users.filter(user => user.username !== username);
+                this.saveUsers(updatedUsers);
+                console.log(`User ${username} telah dihapus karena masa aktif habis`);
+                
+                // Jika user yang dihapus sedang login, logout secara otomatis
+                if (currentUser.username === username) {
+                    document.getElementById('logoutBtn').click();
+                    document.getElementById('errorMessage').textContent = 'Akun Anda telah expired dan dihapus';
+                    document.getElementById('errorPopup').classList.add('active');
                 }
             }
 
@@ -2712,6 +2690,16 @@
                 users.push(newUser);
                 const success = this.saveUsers(users);
                 
+                // Setup auto-delete untuk user baru
+                if (success && expiresAt) {
+                    const timeUntilExpiry = new Date(expiresAt) - new Date();
+                    if (timeUntilExpiry > 0) {
+                        setTimeout(() => {
+                            this.deleteExpiredUser(userData.username);
+                        }, timeUntilExpiry);
+                    }
+                }
+                
                 return {
                     success: success,
                     message: success ? 'User berhasil ditambahkan' : 'Gagal menyimpan user'
@@ -2758,8 +2746,6 @@
 
             // Cek apakah user masih aktif (belum expired)
             validateUser(username, password) {
-                this.cleanExpiredUsers(); // Bersihkan dulu yang expired
-                
                 const users = this.getUsers();
                 const user = users.find(u => u.username === username && u.password === password);
                 
@@ -3762,11 +3748,6 @@
                 console.error('Error:', error);
             });
         }
-
-        // Auto cleanup setiap 1 jam
-        setInterval(() => {
-            autoSaveManager.cleanExpiredUsers();
-        }, 60 * 60 * 1000);
 
         // Export fungsi untuk digunakan di HTML
         window.deleteUser = deleteUser;
