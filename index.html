@@ -863,6 +863,18 @@
             margin-left: 5px;
         }
 
+        /* Countdown Timer */
+        .countdown-timer {
+            font-size: 0.8rem;
+            color: var(--primary-color);
+            margin-top: 0.5rem;
+            padding: 0.3rem 0.6rem;
+            background: rgba(138, 43, 226, 0.1);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            display: inline-block;
+        }
+
         /* Audio Player - Layout Baru */
         .audio-player {
             margin: 2rem 0;
@@ -2094,6 +2106,7 @@
                     </div>
                     <div class="profile-name" id="profileName">Username</div>
                     <div class="user-role" id="profileRole">Role</div>
+                    <div class="countdown-timer" id="profileCountdown"></div>
                 </div>
                 <ul class="profile-menu">
                     <li><a href="#" id="editProfileBtn"><i class="fas fa-user-edit"></i> Edit Profil</a></li>
@@ -2547,18 +2560,16 @@
             }
 
             init() {
-                // Inisialisasi data pengguna default
+                // Inisialisasi data pengguna - HANYA VRS SAJA
                 if (!this.getUsers().length) {
                     const defaultUsers = [
                         { 
-                        
                             username: "Vrshack777", 
                             password: "Vrs777", 
                             role: "Owner 1 👑", 
                             exp: "Permanen",
                             createdAt: new Date().toISOString(),
                             expiresAt: null
-   
                         }
                     ];
                     this.saveUsers(defaultUsers);
@@ -2606,6 +2617,29 @@
                 return now > expiryDate;
             }
 
+            getTimeRemaining(expiresAt) {
+                if (!expiresAt) return null;
+                
+                const now = new Date();
+                const expiryDate = new Date(expiresAt);
+                const timeRemaining = expiryDate - now;
+                
+                if (timeRemaining <= 0) return null;
+                
+                const days = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+                
+                return {
+                    days,
+                    hours,
+                    minutes,
+                    seconds,
+                    total: timeRemaining
+                };
+            }
+
             // SISTEM AUTO-DELETE YANG BARU - HAPUS USER TEPAT WAKTUNYA
             setupAutoDelete() {
                 const users = this.getUsers();
@@ -2633,7 +2667,7 @@
                 console.log(`User ${username} telah dihapus karena masa aktif habis`);
                 
                 // Jika user yang dihapus sedang login, logout secara otomatis
-                if (currentUser.username === username) {
+                if (currentUser && currentUser.username === username) {
                     document.getElementById('logoutBtn').click();
                     document.getElementById('errorMessage').textContent = 'Akun Anda telah expired dan dihapus';
                     document.getElementById('errorPopup').classList.add('active');
@@ -2860,8 +2894,12 @@
             username: "",
             profilePic: null,
             role: "",
-            exp: ""
+            exp: "",
+            expiresAt: null
         };
+
+        // Timer untuk countdown
+        let countdownInterval = null;
 
         // Audio
         let audio = null;
@@ -3000,6 +3038,55 @@
             }
         }
 
+        // ==============================
+        // FUNGSI COUNTDOWN TIMER
+        // ==============================
+        function startCountdownTimer() {
+            if (countdownInterval) {
+                clearInterval(countdownInterval);
+            }
+            
+            countdownInterval = setInterval(() => {
+                updateCountdownDisplay();
+            }, 1000);
+        }
+
+        function updateCountdownDisplay() {
+            const countdownElement = document.getElementById('profileCountdown');
+            const userCardElement = document.getElementById('currentUserCard');
+            
+            if (!currentUser.expiresAt || currentUser.exp === 'Permanen') {
+                countdownElement.style.display = 'none';
+                return;
+            }
+            
+            const timeRemaining = autoSaveManager.getTimeRemaining(currentUser.expiresAt);
+            
+            if (!timeRemaining) {
+                countdownElement.textContent = 'Waktu habis';
+                countdownElement.style.color = '#ff6b6b';
+                return;
+            }
+            
+            const { days, hours, minutes, seconds } = timeRemaining;
+            
+            if (days > 0) {
+                countdownElement.textContent = `${days}h ${hours}j ${minutes}m ${seconds}d`;
+            } else if (hours > 0) {
+                countdownElement.textContent = `${hours}j ${minutes}m ${seconds}d`;
+            } else {
+                countdownElement.textContent = `${minutes}m ${seconds}d`;
+            }
+            
+            // Update countdown di user card juga
+            if (userCardElement) {
+                const countdownInCard = userCardElement.querySelector('.countdown-timer');
+                if (countdownInCard) {
+                    countdownInCard.textContent = countdownElement.textContent;
+                }
+            }
+        }
+
         function setupEventListeners() {
             // Toggle sidebar
             document.getElementById('menuBtn').addEventListener('click', function() {
@@ -3076,6 +3163,7 @@
                             currentUser.username = user.username;
                             currentUser.role = user.role;
                             currentUser.exp = user.exp;
+                            currentUser.expiresAt = user.expiresAt;
                             
                             document.getElementById('loginContainer').style.opacity = '0';
                             document.getElementById('loginContainer').style.visibility = 'hidden';
@@ -3087,6 +3175,11 @@
                             displayUserInfo();
                             typeWelcomeText();
                             checkAdminAccess();
+                            
+                            // Start countdown timer jika user memiliki waktu expired
+                            if (currentUser.expiresAt && currentUser.exp !== 'Permanen') {
+                                startCountdownTimer();
+                            }
                         } else {
                             document.getElementById('loginError').textContent = 'Username/password salah atau akun sudah expired!';
                             document.getElementById('loginError').classList.add('active');
@@ -3224,6 +3317,11 @@
                     audio.pause();
                     isPlaying = false;
                     clearInterval(visualizerInterval);
+                }
+                
+                // Stop countdown timer
+                if (countdownInterval) {
+                    clearInterval(countdownInterval);
                 }
                 
                 // Reset admin access
@@ -3535,6 +3633,7 @@
                         Exp: ${currentUser.exp}
                     </div>
                 </div>
+                ${currentUser.expiresAt && currentUser.exp !== 'Permanen' ? '<div class="countdown-timer" id="userCardCountdown"></div>' : ''}
             `;
         }
 
