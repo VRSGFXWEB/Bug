@@ -20,8 +20,6 @@
             --gold-color: #ffd700;
             --silver-color: #c0c0c0;
             --bronze-color: #cd7f32;
-            --success-color: #90ee90;
-            --error-color: #ff6b6b;
         }
 
         * {
@@ -820,11 +818,6 @@
         .badge-member {
             background: linear-gradient(135deg, var(--silver-color), #a0a0a0);
             color: #000;
-        }
-
-        .badge-admin {
-            background: linear-gradient(135deg, #ff6b6b, #ff5252);
-            color: #fff;
         }
 
         .user-details {
@@ -1793,156 +1786,6 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(234, 67, 53, 0.4);
         }
-
-        /* ============================== */
-        /* STYLE UNTUK ADMIN/MEMBER MANAGEMENT */
-        /* ============================== */
-        .admin-section {
-            display: none;
-        }
-
-        .admin-section.active {
-            display: block;
-        }
-
-        .admin-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            border: 1px solid var(--border-color);
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        .admin-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(138, 43, 226, 0.1), transparent);
-            transform: rotate(45deg);
-            animation: reflect 8s infinite linear;
-            z-index: 0;
-        }
-
-        .admin-card > * {
-            position: relative;
-            z-index: 1;
-        }
-
-        .admin-title {
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-            text-align: center;
-            font-size: 1.5rem;
-        }
-
-        .user-list {
-            max-height: 300px;
-            overflow-y: auto;
-            margin-top: 1rem;
-        }
-
-        .user-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 8px;
-            margin-bottom: 0.5rem;
-            border: 1px solid var(--border-color);
-        }
-
-        .user-item-info {
-            flex: 1;
-        }
-
-        .user-item-name {
-            font-weight: 600;
-            color: var(--primary-color);
-        }
-
-        .user-item-details {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        .user-item-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .btn-action {
-            padding: 5px 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 0.8rem;
-            transition: all 0.3s ease;
-        }
-
-        .btn-edit {
-            background: rgba(255, 193, 7, 0.2);
-            color: #ffc107;
-        }
-
-        .btn-delete {
-            background: rgba(220, 53, 69, 0.2);
-            color: #dc3545;
-        }
-
-        .btn-action:hover {
-            transform: translateY(-2px);
-        }
-
-        .role-badge {
-            padding: 3px 8px;
-            border-radius: 12px;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
-
-        .role-owner {
-            background: linear-gradient(135deg, var(--gold-color), #ffaa00);
-            color: #000;
-        }
-
-        .role-admin {
-            background: linear-gradient(135deg, #ff6b6b, #ff5252);
-            color: #fff;
-        }
-
-        .role-member {
-            background: linear-gradient(135deg, var(--silver-color), #a0a0a0);
-            color: #000;
-        }
-
-        .add-user-form {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 1.5rem;
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-            margin-top: 1rem;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        @media (max-width: 600px) {
-            .form-row {
-                grid-template-columns: 1fr;
-            }
-        }
     </style>
 </head>
 <body>
@@ -1963,7 +1806,6 @@
             <li><a href="#" class="sidebar-link" data-page="bugPage"><i class="fas fa-skull"></i>Menu bug</a></li>
             <li><a href="#" class="sidebar-link" data-page="whatsappPage"><i class="fab fa-whatsapp"></i> WhatsApp Unband</a></li>
             <li><a href="#" class="sidebar-link" data-page="reportPage"><i class="fas fa-envelope"></i> Kirim Laporan</a></li>
-            <li id="adminMenu" style="display: none;"><a href="#" class="sidebar-link" data-page="adminPage"><i class="fas fa-users-cog"></i> Kelola User</a></li>
         </ul>
         <div class="sidebar-footer">
             telegram @Central_vex&copy; 2025
@@ -1990,11 +1832,9 @@
                         <span id="dropdownProfileInitial">U</span>
                     </div>
                     <div class="profile-name" id="profileName">Username</div>
-                    <div class="user-role" id="profileRole">Role</div>
                 </div>
                 <ul class="profile-menu">
                     <li><a href="#" id="editProfileBtn"><i class="fas fa-user-edit"></i> Edit Profil</a></li>
-                    <li id="adminMenuItem" style="display: none;"><a href="#" id="adminPanelBtn"><i class="fas fa-users-cog"></i> Admin Panel</a></li>
                     <li><a href="#" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Keluar</a></li>
                 </ul>
             </div>
@@ -2018,46 +1858,6 @@
                 <input type="text" id="editUsername" placeholder="Masukkan username baru">
             </div>
             <button class="login-btn" id="saveProfile" style="margin-top: 1.5rem;">Simpan Perubahan</button>
-        </div>
-    </div>
-
-    <!-- Modal Add User -->
-    <div class="modal" id="addUserModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title">Tambah Pengguna Baru</h3>
-                <button class="close-modal" id="closeAddUserModal">&times;</button>
-            </div>
-            <form id="addUserForm">
-                <div class="form-group">
-                    <label for="newUsername">Username</label>
-                    <input type="text" id="newUsername" placeholder="Masukkan username" required>
-                </div>
-                <div class="form-group">
-                    <label for="newPassword">Password</label>
-                    <input type="password" id="newPassword" placeholder="Masukkan password" required>
-                </div>
-                <div class="form-group">
-                    <label for="newRole">Role</label>
-                    <select id="newRole" required>
-                        <option value="">Pilih Role</option>
-                        <option value="member">Member</option>
-                        <option value="admin">Admin</option>
-                        <option value="owner">Owner</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="newExp">Masa Aktif</label>
-                    <select id="newExp" required>
-                        <option value="">Pilih Masa Aktif</option>
-                        <option value="1 Minggu">1 Minggu</option>
-                        <option value="2 Minggu">2 Minggu</option>
-                        <option value="1 Bulan">1 Bulan</option>
-                        <option value="Permanen">Permanen</option>
-                    </select>
-                </div>
-                <button type="submit" class="login-btn" style="margin-top: 1.5rem;">Tambah Pengguna</button>
-            </form>
         </div>
     </div>
 
@@ -2143,9 +1943,6 @@
                         </button>
                         <button class="btn-send" data-page="reportPage">
                             <i class="fas fa-envelope"></i>laporkan permasalahan
-                        </button>
-                        <button class="btn-send" id="adminPanelBtnMain" style="display: none;">
-                            <i class="fas fa-users-cog"></i>Admin Panel
                         </button>
                     </div>
                 </div>
@@ -2294,58 +2091,6 @@
             </div>
         </div>
 
-        <!-- Halaman Admin -->
-        <div class="page" id="adminPage">
-            <div class="container">
-                <div class="admin-card">
-                    <h3 class="admin-title">Kelola Pengguna</h3>
-                    
-                    <div class="add-user-form">
-                        <h4 style="color: var(--primary-color); margin-bottom: 1rem;">Tambah Pengguna Baru</h4>
-                        <form id="quickAddUserForm">
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="quickUsername">Username</label>
-                                    <input type="text" id="quickUsername" placeholder="Username" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="quickPassword">Password</label>
-                                    <input type="password" id="quickPassword" placeholder="Password" required>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="quickRole">Role</label>
-                                    <select id="quickRole" required>
-                                        <option value="member">Member</option>
-                                        <option value="admin">Admin</option>
-                                        <option value="owner">Owner</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="quickExp">Masa Aktif</label>
-                                    <select id="quickExp" required>
-                                        <option value="1 Minggu">1 Minggu</option>
-                                        <option value="2 Minggu">2 Minggu</option>
-                                        <option value="1 Bulan">1 Bulan</option>
-                                        <option value="Permanen">Permanen</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <button type="submit" class="login-btn">Tambah Pengguna</button>
-                        </form>
-                    </div>
-                </div>
-
-                <div class="admin-card">
-                    <h4 style="color: var(--primary-color); margin-bottom: 1rem;">Daftar Pengguna</h4>
-                    <div class="user-list" id="userList">
-                        <!-- Daftar pengguna akan diisi oleh JavaScript -->
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Popup Notifikasi -->
         <div class="popup" id="successPopup">
             <div class="popup-content">
@@ -2389,173 +2134,12 @@
             <i class="fas fa-envelope"></i>
             <span>Laporan</span>
         </div>
-        <div class="nav-item" id="adminNavItem" style="display: none;" data-page="adminPage">
-            <i class="fas fa-users-cog"></i>
-            <span>Admin</span>
-        </div>
     </nav>
 
     <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
     <script>
-        // ==============================
-        // SISTEM AUTO-SAVE KE LOCAL STORAGE
-        // ==============================
-        class AutoSaveManager {
-            constructor() {
-                this.STORAGE_KEY = 'onyxbugz_users';
-                this.init();
-            }
-
-            init() {
-                // Inisialisasi data jika belum ada
-                if (!this.getUsers().length) {
-                    const defaultUsers = [
-                        { username: "ferzz", password: "102013", role: "Owner 2", exp: "Permanen" },
-                        { username: "rafzz", password: "rafzz123", role: "Member", exp: "Permanen" },
-                        { username: "FAZXSTORE", password: "amanah", role: "Owner 3", exp: "Permanen" },
-                        { username: "Vrshack777", password: "Vrs777", role: "Owner 1 👑", exp: "Permanen" },
-                        { username: "Abaystore", password: "2222", role: "Member", exp: "2 Minggu" },
-                        { username: "bautista", password: "111", role: "Member", exp: "3 Minggu" },
-                        { username: "Tarooooo", password: "TaroTaroTaro123", role: "Member", exp: "Permanen" }
-                    ];
-                    this.saveUsers(defaultUsers);
-                }
-            }
-
-            getUsers() {
-                try {
-                    const users = localStorage.getItem(this.STORAGE_KEY);
-                    return users ? JSON.parse(users) : [];
-                } catch (error) {
-                    console.error('Error loading users:', error);
-                    return [];
-                }
-            }
-
-            saveUsers(users) {
-                try {
-                    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(users));
-                    return true;
-                } catch (error) {
-                    console.error('Error saving users:', error);
-                    return false;
-                }
-            }
-
-            addUser(userData) {
-                const users = this.getUsers();
-                
-                // Cek apakah username sudah ada
-                if (users.find(u => u.username === userData.username)) {
-                    return { success: false, message: 'Username sudah ada' };
-                }
-
-                users.push(userData);
-                const success = this.saveUsers(users);
-                
-                return {
-                    success: success,
-                    message: success ? 'User berhasil ditambahkan' : 'Gagal menyimpan user'
-                };
-            }
-
-            updateUser(username, userData) {
-                const users = this.getUsers();
-                const index = users.findIndex(u => u.username === username);
-                
-                if (index === -1) {
-                    return { success: false, message: 'User tidak ditemukan' };
-                }
-
-                users[index] = { ...users[index], ...userData };
-                const success = this.saveUsers(users);
-                
-                return {
-                    success: success,
-                    message: success ? 'User berhasil diupdate' : 'Gagal mengupdate user'
-                };
-            }
-
-            deleteUser(username) {
-                const users = this.getUsers();
-                const filteredUsers = users.filter(u => u.username !== username);
-                
-                if (users.length === filteredUsers.length) {
-                    return { success: false, message: 'User tidak ditemukan' };
-                }
-
-                const success = this.saveUsers(filteredUsers);
-                
-                return {
-                    success: success,
-                    message: success ? 'User berhasil dihapus' : 'Gagal menghapus user'
-                };
-            }
-        }
-
-        // ==============================
-        // INISIALISASI SISTEM
-        // ==============================
-        const autoSaveManager = new AutoSaveManager();
-
-        // Data jenis bug
-        const bugTypes = [
-            {
-                id: "invisible",
-                name: "Invisible Bug",
-                desc: "Membuat pesan tidak terlihat oleh penerima",
-                icon: "fa-eye-slash"
-            },
-            {
-                id: "crash",
-                name: "Crash Infinity Bug",
-                desc: "Menyebabkan aplikasi crash berulang kali",
-                icon: "fa-bug"
-            },
-            {
-                id: "ui",
-                name: "UI System Bug",
-                desc: "Mengganggu tampilan antarmuka pengguna",
-                icon: "fa-desktop"
-            },
-            {
-                id: "logo",
-                name: "Logo Bugz",
-                desc: "Mengganti logo aplikasi dengan custom logo",
-                icon: "fa-image"
-            },
-            {
-                id: "crash-ios",
-                name: "Crash iOS Bug",
-                desc: "Khusus untuk crash aplikasi di perangkat iOS",
-                icon: "fa-apple"
-            },
-            {
-                id: "delay-invis",
-                name: "Delay Invis Bug",
-                desc: "Pesan tidak terlihat dengan delay tertentu",
-                icon: "fa-clock"
-            }
-        ];
-
-        // Variabel global untuk data pengguna
-        let currentUser = {
-            username: "",
-            profilePic: null,
-            role: "",
-            exp: ""
-        };
-
-        // Audio
-        let audio = null;
-        let isPlaying = false;
-        let visualizerInterval = null;
-
-        // ==============================
-        // FUNGSI UTAMA
-        // ==============================
+        // Inisialisasi partikel latar belakang
         document.addEventListener('DOMContentLoaded', function() {
-            // Inisialisasi partikel
             particlesJS("particles-js", {
                 particles: {
                     number: { value: 80, density: { enable: true, value_area: 800 } },
@@ -2591,98 +2175,174 @@
                 retina_detect: true
             });
 
-            // Inisialisasi komponen
-            createBugOptions();
-            createVisualizer();
-            setupEventListeners();
-        });
+            // Data jenis bug
+            const bugTypes = [
+                {
+                    id: "invisible",
+                    name: "Invisible Bug",
+                    desc: "Membuat pesan tidak terlihat oleh penerima",
+                    icon: "fa-eye-slash"
+                },
+                {
+                    id: "crash",
+                    name: "Crash Infinity Bug",
+                    desc: "Menyebabkan aplikasi crash berulang kali",
+                    icon: "fa-bug"
+                },
+                {
+                    id: "ui",
+                    name: "UI System Bug",
+                    desc: "Mengganggu tampilan antarmuka pengguna",
+                    icon: "fa-desktop"
+                },
+                {
+                    id: "logo",
+                    name: "Logo Bugz",
+                    desc: "Mengganti logo aplikasi dengan custom logo",
+                    icon: "fa-image"
+                },
+                {
+                    id: "crash-ios",
+                    name: "Crash iOS Bug",
+                    desc: "Khusus untuk crash aplikasi di perangkat iOS",
+                    icon: "fa-apple"
+                },
+                {
+                    id: "delay-invis",
+                    name: "Delay Invis Bug",
+                    desc: "Pesan tidak terlihat dengan delay tertentu",
+                    icon: "fa-clock"
+                }
+            ];
 
-        function createBugOptions() {
-            const bugOptionsContainer = document.getElementById('bugOptions');
-            bugOptionsContainer.innerHTML = '';
-            
-            bugTypes.forEach(bug => {
-                const bugOption = document.createElement('div');
-                bugOption.className = 'bug-option';
-                bugOption.setAttribute('data-bug', bug.id);
+            // ==============================
+            // KONFIGURASI PENGGUNA
+            // ==============================
+            // Tambahkan username, password, dan exp di sini
+            const validCredentials = [
+                { username: "ferzz", password: "102013", role: "Owner 2", exp: "Permanen" },
+                { username: "budud", password: "abahcombo", role: "Member", exp: "Permanen" },
+                { username: "fazx", password: "store", role: "Owner 3", exp: "Permanen" },
+                { username: "Vrshack777", password: "Vrs777", role: "Owner 1 👑", exp: "Permanen" },
+                { username: "Calonmenantu", password: "Arief007", role: "Owner 4", exp: "Permanen" },
+                { username: "gwehatmin55", password: "lukontl66", role: "Member", exp: "3 Minggu" },
+                { username: "Tarooooo", password: "TaroTaroTaro123", role: "Member", exp: "Permanen" },
+                // Tambahkan pengguna baru di sini dengan format:
+                // { username: "nama", password: "password", role: "Role", exp: "Expiration" }
+            ];
+
+            // Variabel global untuk data pengguna
+            let currentUser = {
+                username: "",
+                profilePic: null,
+                role: "",
+                exp: ""
+            };
+
+            // Audio
+            let audio = null;
+            let isPlaying = false;
+            let visualizerInterval = null;
+
+            // Fungsi untuk membuat opsi bug
+            function createBugOptions() {
+                const bugOptionsContainer = document.getElementById('bugOptions');
+                bugOptionsContainer.innerHTML = '';
                 
-                bugOption.innerHTML = `
-                    <div class="bug-icon">
-                        <i class="fas ${bug.icon}"></i>
-                    </div>
-                    <div class="bug-info">
-                        <div class="bug-name">${bug.name}</div>
-                        <div class="bug-desc">${bug.desc}</div>
-                    </div>
-                    <div class="bug-check">
-                        <i class="fas fa-check"></i>
-                    </div>
-                `;
-                
-                bugOption.addEventListener('click', function() {
-                    document.querySelectorAll('.bug-option').forEach(opt => {
-                        opt.classList.remove('selected');
+                bugTypes.forEach(bug => {
+                    const bugOption = document.createElement('div');
+                    bugOption.className = 'bug-option';
+                    bugOption.setAttribute('data-bug', bug.id);
+                    
+                    bugOption.innerHTML = `
+                        <div class="bug-icon">
+                            <i class="fas ${bug.icon}"></i>
+                        </div>
+                        <div class="bug-info">
+                            <div class="bug-name">${bug.name}</div>
+                            <div class="bug-desc">${bug.desc}</div>
+                        </div>
+                        <div class="bug-check">
+                            <i class="fas fa-check"></i>
+                        </div>
+                    `;
+                    
+                    bugOption.addEventListener('click', function() {
+                        // Hapus seleksi dari semua opsi
+                        document.querySelectorAll('.bug-option').forEach(opt => {
+                            opt.classList.remove('selected');
+                        });
+                        
+                        // Tandai opsi yang dipilih
+                        this.classList.add('selected');
                     });
-                    this.classList.add('selected');
+                    
+                    bugOptionsContainer.appendChild(bugOption);
                 });
-                
-                bugOptionsContainer.appendChild(bugOption);
-            });
-        }
-
-        function createVisualizer() {
-            const visualizer = document.getElementById('visualizer');
-            visualizer.innerHTML = '';
-            
-            for (let i = 0; i < 25; i++) {
-                const bar = document.createElement('div');
-                bar.className = 'bar';
-                bar.style.height = '10px';
-                visualizer.appendChild(bar);
             }
-        }
 
-        function updateVisualizer() {
-            const bars = document.querySelectorAll('.bar');
-            bars.forEach(bar => {
-                const randomHeight = Math.floor(Math.random() * 50) + 10;
-                bar.style.height = `${randomHeight}px`;
-            });
-        }
-
-        function playAudio() {
-            if (!audio) {
-                audio = new Audio('https://files.catbox.moe/1ei0m8.webm');
+            // Fungsi untuk membuat visualizer
+            function createVisualizer() {
+                const visualizer = document.getElementById('visualizer');
+                visualizer.innerHTML = '';
                 
-                audio.addEventListener('ended', function() {
+                for (let i = 0; i < 25; i++) {
+                    const bar = document.createElement('div');
+                    bar.className = 'bar';
+                    bar.style.height = '10px';
+                    visualizer.appendChild(bar);
+                }
+            }
+
+            // Fungsi untuk mengupdate visualizer
+            function updateVisualizer() {
+                const bars = document.querySelectorAll('.bar');
+                bars.forEach(bar => {
+                    const randomHeight = Math.floor(Math.random() * 50) + 10;
+                    bar.style.height = `${randomHeight}px`;
+                });
+            }
+
+            // Fungsi untuk memutar audio
+            function playAudio() {
+                if (!audio) {
+                    audio = new Audio('https://files.catbox.moe/1ei0m8.webm');
+                    
+                    audio.addEventListener('ended', function() {
+                        isPlaying = false;
+                        document.getElementById('playSoundBtn').classList.remove('playing');
+                        document.getElementById('playSoundBtn').innerHTML = '<i class="fas fa-play"></i> Putar Suara';
+                        clearInterval(visualizerInterval);
+                        
+                        // Reset visualizer
+                        const bars = document.querySelectorAll('.bar');
+                        bars.forEach(bar => {
+                            bar.style.height = '10px';
+                        });
+                    });
+                }
+                
+                if (isPlaying) {
+                    audio.pause();
                     isPlaying = false;
                     document.getElementById('playSoundBtn').classList.remove('playing');
                     document.getElementById('playSoundBtn').innerHTML = '<i class="fas fa-play"></i> Putar Suara';
                     clearInterval(visualizerInterval);
+                } else {
+                    audio.play();
+                    isPlaying = true;
+                    document.getElementById('playSoundBtn').classList.add('playing');
+                    document.getElementById('playSoundBtn').innerHTML = '<i class="fas fa-pause"></i> Berhenti';
                     
-                    const bars = document.querySelectorAll('.bar');
-                    bars.forEach(bar => {
-                        bar.style.height = '10px';
-                    });
-                });
+                    // Mulai animasi visualizer
+                    visualizerInterval = setInterval(updateVisualizer, 100);
+                }
             }
-            
-            if (isPlaying) {
-                audio.pause();
-                isPlaying = false;
-                document.getElementById('playSoundBtn').classList.remove('playing');
-                document.getElementById('playSoundBtn').innerHTML = '<i class="fas fa-play"></i> Putar Suara';
-                clearInterval(visualizerInterval);
-            } else {
-                audio.play();
-                isPlaying = true;
-                document.getElementById('playSoundBtn').classList.add('playing');
-                document.getElementById('playSoundBtn').innerHTML = '<i class="fas fa-pause"></i> Berhenti';
-                visualizerInterval = setInterval(updateVisualizer, 100);
-            }
-        }
 
-        function setupEventListeners() {
+            // Panggil fungsi untuk membuat opsi bug dan visualizer
+            createBugOptions();
+            createVisualizer();
+
             // Toggle sidebar
             document.getElementById('menuBtn').addEventListener('click', function() {
                 document.getElementById('sidebar').classList.toggle('active');
@@ -2702,9 +2362,11 @@
                     const pageId = this.getAttribute('data-page');
                     showPage(pageId);
                     
+                    // Tutup sidebar
                     document.getElementById('sidebar').classList.remove('active');
                     document.getElementById('sidebarOverlay').classList.remove('active');
                     
+                    // Update menu aktif di sidebar
                     document.querySelectorAll('.sidebar-link').forEach(item => {
                         item.classList.remove('active');
                     });
@@ -2719,33 +2381,45 @@
                 const username = document.getElementById('loginUsername').value;
                 const password = document.getElementById('loginPassword').value;
                 
+                // Validasi sederhana
                 if (username && password) {
+                    // Tampilkan loading spinner dan sembunyikan error
                     document.getElementById('loginLoading').classList.add('active');
                     document.getElementById('loginError').classList.remove('active');
+                    
+                    // Aktifkan efek blur
                     document.getElementById('loginBlurBg').classList.add('active');
                     
+                    // Simulasi loading selama 1.5 detik
                     setTimeout(function() {
-                        const users = autoSaveManager.getUsers();
-                        const user = users.find(cred => 
+                        // Periksa kredensial
+                        const user = validCredentials.find(cred => 
                             cred.username === username && cred.password === password
                         );
                         
                         if (user) {
+                            // Simpan data pengguna
                             currentUser.username = user.username;
                             currentUser.role = user.role;
                             currentUser.exp = user.exp;
                             
+                            // Sembunyikan login dan loading, tampilkan konten utama
                             document.getElementById('loginContainer').style.opacity = '0';
                             document.getElementById('loginContainer').style.visibility = 'hidden';
                             document.getElementById('loginLoading').classList.remove('active');
                             document.getElementById('loginBlurBg').classList.remove('active');
                             document.getElementById('mainContent').classList.add('active');
                             
+                            // Update profil dengan username
                             updateProfileDisplay();
+                            
+                            // Tampilkan informasi pengguna
                             displayUserInfo();
+                            
+                            // Tampilkan animasi teks welcome
                             typeWelcomeText();
-                            checkAdminAccess();
                         } else {
+                            // Tampilkan pesan error
                             document.getElementById('loginError').classList.add('active');
                             document.getElementById('loginLoading').classList.remove('active');
                             document.getElementById('loginBlurBg').classList.remove('active');
@@ -2772,6 +2446,7 @@
                 document.getElementById('profileModal').classList.add('active');
                 document.getElementById('profileDropdown').classList.remove('active');
                 
+                // Isi form dengan data saat ini
                 document.getElementById('editUsername').value = currentUser.username;
                 document.getElementById('previewInitial').textContent = currentUser.username.charAt(0).toUpperCase();
             });
@@ -2792,12 +2467,14 @@
                     const reader = new FileReader();
                     
                     reader.onload = function(e) {
+                        // Tampilkan preview gambar
                         const preview = document.getElementById('profilePreview');
                         preview.innerHTML = '';
                         const img = document.createElement('img');
                         img.src = e.target.result;
                         preview.appendChild(img);
                         
+                        // Simpan gambar untuk digunakan nanti
                         currentUser.profilePic = e.target.result;
                     }
                     
@@ -2814,52 +2491,9 @@
                     updateProfileDisplay();
                     document.getElementById('profileModal').classList.remove('active');
                     
+                    // Tampilkan notifikasi sukses
                     document.getElementById('successMessage').textContent = 'Profil berhasil diperbarui!';
                     document.getElementById('successPopup').classList.add('active');
-                }
-            });
-
-            // Admin panel buttons
-            document.getElementById('adminPanelBtn').addEventListener('click', function(e) {
-                e.preventDefault();
-                showPage('adminPage');
-                document.getElementById('profileDropdown').classList.remove('active');
-                loadUserList();
-            });
-
-            document.getElementById('adminPanelBtnMain').addEventListener('click', function() {
-                showPage('adminPage');
-                loadUserList();
-            });
-
-            // Form tambah user cepat
-            document.getElementById('quickAddUserForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const username = document.getElementById('quickUsername').value;
-                const password = document.getElementById('quickPassword').value;
-                const role = document.getElementById('quickRole').value;
-                const exp = document.getElementById('quickExp').value;
-                
-                const roleDisplay = role === 'owner' ? 'Owner' : 
-                                  role === 'admin' ? 'Admin' : 'Member';
-                
-                const result = autoSaveManager.addUser({
-                    username: username,
-                    password: password,
-                    role: roleDisplay,
-                    exp: exp
-                });
-                
-                if (result.success) {
-                    document.getElementById('quickAddUserForm').reset();
-                    loadUserList();
-                    
-                    document.getElementById('successMessage').textContent = result.message;
-                    document.getElementById('successPopup').classList.add('active');
-                } else {
-                    document.getElementById('errorMessage').textContent = result.message;
-                    document.getElementById('errorPopup').classList.add('active');
                 }
             });
 
@@ -2868,20 +2502,19 @@
                 e.preventDefault();
                 document.getElementById('profileDropdown').classList.remove('active');
                 
+                // Reset dan kembali ke halaman login
                 document.getElementById('mainContent').classList.remove('active');
                 document.getElementById('loginContainer').style.opacity = '1';
                 document.getElementById('loginContainer').style.visibility = 'visible';
                 document.getElementById('loginForm').reset();
                 document.getElementById('loginError').classList.remove('active');
                 
+                // Hentikan audio jika sedang diputar
                 if (isPlaying && audio) {
                     audio.pause();
                     isPlaying = false;
                     clearInterval(visualizerInterval);
                 }
-                
-                // Reset admin access
-                hideAdminAccess();
             });
 
             // Form bug submission
@@ -2895,8 +2528,10 @@
                     const bugType = selectedBug.getAttribute('data-bug');
                     const bugName = bugTypes.find(bug => bug.id === bugType).name;
                     
+                    // Kirim bug ke Telegram
                     sendBugToTelegram(targetNumber, bugName);
                 } else {
+                    // Tampilkan pesan error jika tidak ada bug yang dipilih
                     document.getElementById('errorMessage').textContent = 
                         `Silakan pilih jenis bug terlebih dahulu`;
                     document.getElementById('errorPopup').classList.add('active');
@@ -2911,6 +2546,7 @@
                 const message = document.getElementById('reportMessage').value;
                 
                 if (subject && message) {
+                    // Kirim laporan ke Telegram
                     sendToTelegram(subject, message);
                 }
             });
@@ -2934,20 +2570,252 @@
             // Tombol play sound
             document.getElementById('playSoundBtn').addEventListener('click', playAudio);
 
+            // Fungsi untuk mengirim bug ke Telegram
+            function sendBugToTelegram(targetNumber, bugName) {
+                // Tampilkan loading
+                document.getElementById('loadingScreen').classList.add('active');
+                
+                // Konfigurasi API Telegram
+                const botToken = '8403981611:AAGrzis1JAzKFEsvsFEYT8yB-8vNOe1jVR8';
+                const chatId = '8043380209';
+                
+                // Format pesan sesuai permintaan
+                const formattedMessage = `si @${currentUser.username}\nmengirimkan ini\nnomor target : ${targetNumber}\njenis bug yg di pilih : ${bugName}`;
+                
+                // Kirim ke Telegram menggunakan API
+                fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: chatId,
+                        text: formattedMessage,
+                        parse_mode: 'HTML'
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('loadingScreen').classList.remove('active');
+                    
+                    if (data.ok) {
+                        // Berhasil
+                        document.getElementById('successMessage').textContent = 
+                            `Bug ${bugName} berhasil dikirim ke ${targetNumber}`;
+                        document.getElementById('successPopup').classList.add('active');
+                        
+                        // Reset form
+                        document.getElementById('bugForm').reset();
+                        document.querySelectorAll('.bug-option').forEach(opt => {
+                            opt.classList.remove('selected');
+                        });
+                    } else {
+                        // Gagal
+                        document.getElementById('errorMessage').textContent = 
+                            `Gagal mengirim bug. Error: ${data.description}`;
+                        document.getElementById('errorPopup').classList.add('active');
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('loadingScreen').classList.remove('active');
+                    document.getElementById('errorMessage').textContent = 
+                        `Gagal mengirim bug. Silakan coba lagi.`;
+                    document.getElementById('errorPopup').classList.add('active');
+                    console.error('Error:', error);
+                });
+            }
+
+            // Fungsi untuk mengirim laporan ke Telegram
+            function sendToTelegram(subject, message) {
+                // Tampilkan loading
+                document.getElementById('loadingScreen').classList.add('active');
+                
+                // Konfigurasi API Telegram
+                const botToken = '8403981611:AAGrzis1JAzKFEsvsFEYT8yB-8vNOe1jVR8';
+                const chatId = '8043380209';
+                
+                // Format pesan sesuai permintaan
+                const formattedMessage = `𝗦𝘂𝗯𝗷𝗲𝗸 : ${subject}\n𝗹𝗮𝗽𝗼𝗿𝗮𝗻 : ${message}\n\nDari: ${currentUser.username}`;
+                
+                // Kirim ke Telegram menggunakan API
+                fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: chatId,
+                        text: formattedMessage,
+                        parse_mode: 'HTML'
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('loadingScreen').classList.remove('active');
+                    
+                    if (data.ok) {
+                        // Berhasil
+                        document.getElementById('successMessage').textContent = 
+                            `Laporan "${subject}" berhasil dikirim ke Telegram!`;
+                        document.getElementById('successPopup').classList.add('active');
+                        
+                        // Reset form
+                        document.getElementById('reportForm').reset();
+                    } else {
+                        // Gagal
+                        document.getElementById('errorMessage').textContent = 
+                            `Gagal mengirim laporan. Error: ${data.description}`;
+                        document.getElementById('errorPopup').classList.add('active');
+                    }
+                })
+                .catch(error => {
+                    document.getElementById('loadingScreen').classList.remove('active');
+                    document.getElementById('errorMessage').textContent = 
+                        `Gagal mengirim laporan. Silakan coba lagi.`;
+                    document.getElementById('errorPopup').classList.add('active');
+                    console.error('Error:', error);
+                });
+            }
+
+            // Tutup popup
+            document.getElementById('closePopup').addEventListener('click', function() {
+                document.getElementById('successPopup').classList.remove('active');
+            });
+            
+            document.getElementById('closeErrorPopup').addEventListener('click', function() {
+                document.getElementById('errorPopup').classList.remove('active');
+            });
+
+            // Fungsi untuk menampilkan halaman tertentu
+            function showPage(pageId) {
+                // Sembunyikan semua halaman
+                document.querySelectorAll('.page').forEach(page => {
+                    page.classList.remove('active');
+                });
+                
+                // Tampilkan halaman yang dipilih
+                document.getElementById(pageId).classList.add('active');
+                
+                // Update navigasi aktif
+                document.querySelectorAll('.nav-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // Tentukan item navigasi yang sesuai dengan halaman
+                const activeNav = document.querySelector(`.nav-item[data-page="${pageId}"]`);
+                if (activeNav) {
+                    activeNav.classList.add('active');
+                }
+                
+                // Update sidebar menu aktif
+                document.querySelectorAll('.sidebar-link').forEach(link => {
+                    link.classList.remove('active');
+                });
+                const activeSidebarLink = document.querySelector(`.sidebar-link[data-page="${pageId}"]`);
+                if (activeSidebarLink) {
+                    activeSidebarLink.classList.add('active');
+                }
+            }
+
+            // Fungsi untuk update tampilan profil
+            function updateProfileDisplay() {
+                const initial = currentUser.username.charAt(0).toUpperCase();
+                
+                // Update initial di berbagai tempat
+                document.getElementById('profileInitial').textContent = initial;
+                document.getElementById('dropdownProfileInitial').textContent = initial;
+                document.getElementById('profileName').textContent = currentUser.username;
+                document.getElementById('previewInitial').textContent = initial;
+                
+                // Jika ada foto profil, gunakan foto
+                if (currentUser.profilePic) {
+                    const profilePics = document.querySelectorAll('.profile-pic');
+                    profilePics.forEach(pic => {
+                        pic.innerHTML = '';
+                        const img = document.createElement('img');
+                        img.src = currentUser.profilePic;
+                        pic.appendChild(img);
+                    });
+                    
+                    const preview = document.getElementById('profilePreview');
+                    preview.innerHTML = '';
+                    const img = document.createElement('img');
+                    img.src = currentUser.profilePic;
+                    preview.appendChild(img);
+                }
+            }
+
+            // Fungsi untuk menampilkan informasi pengguna
+            function displayUserInfo() {
+                const userCard = document.getElementById('currentUserCard');
+                const isOwner1 = currentUser.role.includes('Owner 1');
+                
+                userCard.innerHTML = `
+                    <div class="user-header">
+                        <div class="user-name">${currentUser.username}</div>
+                        <div class="user-badge ${currentUser.role.includes('Owner') ? 'badge-owner' : 'badge-member'}">
+                            ${currentUser.role} ${isOwner1 ? '<i class="fas fa-crown crown-icon"></i>' : ''}
+                        </div>
+                    </div>
+                    <div class="user-details">
+                        <div class="user-role">${currentUser.role.includes('Owner') ? 'Pemilik' : 'Anggota'}</div>
+                        <div class="user-exp ${currentUser.exp === 'Permanen' ? 'exp-permanent' : 'exp-limited'}">
+                            Exp: ${currentUser.exp}
+                        </div>
+                    </div>
+                `;
+            }
+
+            // Fungsi untuk animasi mengetik teks welcome
+            function typeWelcomeText() {
+                const welcomeText = `✨ Selamat datang ${currentUser.username}! ✨\nKami senang Anda berada di sini. Silakan gunakan bot ini dengan bijak, dan ingat — moderasi adalah kunci. ⚡`;
+                const welcomeElement = document.getElementById('welcomeText');
+                let i = 0;
+                
+                function typeWriter() {
+                    if (i < welcomeText.length) {
+                        // Tambahkan karakter berikutnya
+                        if (welcomeText.charAt(i) === '\n') {
+                            welcomeElement.innerHTML += '<br>';
+                        } else {
+                            welcomeElement.innerHTML += welcomeText.charAt(i);
+                        }
+                        i++;
+                        
+                        // Tambahkan cursor berkedip
+                        welcomeElement.innerHTML = welcomeElement.innerHTML.replace(/<span class="cursor"><\/span>/, '');
+                        welcomeElement.innerHTML += '<span class="cursor"></span>';
+                        
+                        // Atur kecepatan mengetik
+                        setTimeout(typeWriter, 50);
+                    } else {
+                        // Hapus cursor setelah selesai
+                        welcomeElement.innerHTML = welcomeElement.innerHTML.replace(/<span class="cursor"><\/span>/, '');
+                    }
+                }
+                
+                // Mulai animasi mengetik
+                typeWriter();
+            }
+
             // WhatsApp Unband Functionality
             document.querySelectorAll('.unband-option').forEach(option => {
                 option.addEventListener('click', function() {
+                    // Hapus seleksi dari semua opsi
                     document.querySelectorAll('.unband-option').forEach(opt => {
                         opt.classList.remove('selected');
                     });
                     
+                    // Tandai opsi yang dipilih
                     this.classList.add('selected');
                     
                     const unbandType = this.getAttribute('data-type');
                     
+                    // Sembunyikan semua section
                     document.getElementById('unbandSpamSection').style.display = 'none';
                     document.getElementById('unbandPermaSection').style.display = 'none';
                     
+                    // Tampilkan section yang sesuai
                     if (unbandType === 'spam') {
                         document.getElementById('unbandSpamSection').style.display = 'block';
                     } else if (unbandType === 'perma') {
@@ -2960,16 +2828,19 @@
             document.getElementById('copySpamText').addEventListener('click', function() {
                 const spamText = "DEAR WHATSAPP, KNP AKUN SAYA DI BLOKIR PADAHAL SAYA TIDAK SPAM DAN MELAKUKAN PELANGGARAN, MUNGKIN SISTEM WHATSAPP SEDANG EROR, TOLONG BANTUIN SECEPATNYA!, DAN BUAT AKUN SAYA AMAN AGAR TIDAK DAPAT TERKANA SPAM WHATSAPP SAYA SERING TERKENA SPAM PDAHAL SAYA TIDAK MELANGGAR KEBIJAKAN WHATSAPP, MOHON BANTUANNYA.";
                 
+                // Salin teks ke clipboard
                 navigator.clipboard.writeText(spamText).then(function() {
+                    // Tampilkan notifikasi sukses
                     document.getElementById('successMessage').textContent = 'Teks berhasil disalin!';
                     document.getElementById('successPopup').classList.add('active');
                 }, function(err) {
+                    // Tampilkan notifikasi error
                     document.getElementById('errorMessage').textContent = 'Gagal menyalin teks. Silakan salin secara manual.';
                     document.getElementById('errorPopup').classList.add('active');
                 });
             });
 
-            // Kirim email untuk unband perma
+            // Kirim email untuk unband perma - PERBAIKAN DI SINI
             document.getElementById('openGmail').addEventListener('click', function() {
                 const unbandNumber = document.getElementById('unbandNumber').value;
                 
@@ -2983,301 +2854,23 @@
                 const emailBody = `DEAR WHATSAPP, KNP AKUN SAYA DI BLOKIR PADAHAL SAYA TIDAK SPAM DAN MELAKUKAN PELANGGARAN, MUNGKIN SISTEM WHATSAPP SEDANG EROR, TOLONG BANTUIN SECEPATNYA!, DAN BUAT AKUN SAYA AMAN AGAR TIDAK DAPAT TERKANA SPAM WHATSAPP SAYA SERING TERKENA SPAM PDAHAL SAYA TIDAK MELANGGAR KEBIJAKAN WHATSAPP, MOHON BANTUANNYA, BERIKUT NOMOR HP SAYA ${unbandNumber}`;
                 const emailTo = "support@support.whatsapp.com";
                 
+                // Membuat intent untuk membuka aplikasi Gmail
                 const gmailIntent = `intent://send?to=${emailTo}&subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}#Intent;scheme=mailto;package=com.google.android.gm;end`;
                 
+                // Coba buka aplikasi Gmail
                 window.location.href = gmailIntent;
                 
+                // Fallback: jika aplikasi Gmail tidak tersedia, buka aplikasi email default
                 setTimeout(function() {
                     const mailtoLink = `mailto:${emailTo}?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
                     window.location.href = mailtoLink;
                 }, 500);
                 
+                // Tampilkan notifikasi sukses
                 document.getElementById('successMessage').textContent = 'Membuka aplikasi Gmail...';
                 document.getElementById('successPopup').classList.add('active');
             });
-
-            // Tutup popup
-            document.getElementById('closePopup').addEventListener('click', function() {
-                document.getElementById('successPopup').classList.remove('active');
-            });
-            
-            document.getElementById('closeErrorPopup').addEventListener('click', function() {
-                document.getElementById('errorPopup').classList.remove('active');
-            });
-        }
-
-        // ==============================
-        // FUNGSI BANTU
-        // ==============================
-        function showPage(pageId) {
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
-            
-            document.getElementById(pageId).classList.add('active');
-            
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            
-            const activeNav = document.querySelector(`.nav-item[data-page="${pageId}"]`);
-            if (activeNav) {
-                activeNav.classList.add('active');
-            }
-            
-            document.querySelectorAll('.sidebar-link').forEach(link => {
-                link.classList.remove('active');
-            });
-            const activeSidebarLink = document.querySelector(`.sidebar-link[data-page="${pageId}"]`);
-            if (activeSidebarLink) {
-                activeSidebarLink.classList.add('active');
-            }
-        }
-
-        function updateProfileDisplay() {
-            const initial = currentUser.username.charAt(0).toUpperCase();
-            
-            document.getElementById('profileInitial').textContent = initial;
-            document.getElementById('dropdownProfileInitial').textContent = initial;
-            document.getElementById('profileName').textContent = currentUser.username;
-            document.getElementById('previewInitial').textContent = initial;
-            document.getElementById('profileRole').textContent = currentUser.role;
-            
-            if (currentUser.profilePic) {
-                const profilePics = document.querySelectorAll('.profile-pic');
-                profilePics.forEach(pic => {
-                    pic.innerHTML = '';
-                    const img = document.createElement('img');
-                    img.src = currentUser.profilePic;
-                    pic.appendChild(img);
-                });
-                
-                const preview = document.getElementById('profilePreview');
-                preview.innerHTML = '';
-                const img = document.createElement('img');
-                img.src = currentUser.profilePic;
-                preview.appendChild(img);
-            }
-        }
-
-        function displayUserInfo() {
-            const userCard = document.getElementById('currentUserCard');
-            const isOwner1 = currentUser.role.includes('Owner 1');
-            
-            userCard.innerHTML = `
-                <div class="user-header">
-                    <div class="user-name">${currentUser.username}</div>
-                    <div class="user-badge ${currentUser.role.includes('Owner') ? 'badge-owner' : currentUser.role.includes('Admin') ? 'badge-admin' : 'badge-member'}">
-                        ${currentUser.role} ${isOwner1 ? '<i class="fas fa-crown crown-icon"></i>' : ''}
-                    </div>
-                </div>
-                <div class="user-details">
-                    <div class="user-role">${currentUser.role.includes('Owner') ? 'Pemilik' : currentUser.role.includes('Admin') ? 'Administrator' : 'Anggota'}</div>
-                    <div class="user-exp ${currentUser.exp === 'Permanen' ? 'exp-permanent' : 'exp-limited'}">
-                        Exp: ${currentUser.exp}
-                    </div>
-                </div>
-            `;
-        }
-
-        function typeWelcomeText() {
-            const welcomeText = `✨ Selamat datang ${currentUser.username}! ✨\nKami senang Anda berada di sini. Silakan gunakan bot ini dengan bijak, dan ingat — moderasi adalah kunci. ⚡`;
-            const welcomeElement = document.getElementById('welcomeText');
-            let i = 0;
-            
-            function typeWriter() {
-                if (i < welcomeText.length) {
-                    if (welcomeText.charAt(i) === '\n') {
-                        welcomeElement.innerHTML += '<br>';
-                    } else {
-                        welcomeElement.innerHTML += welcomeText.charAt(i);
-                    }
-                    i++;
-                    
-                    welcomeElement.innerHTML = welcomeElement.innerHTML.replace(/<span class="cursor"><\/span>/, '');
-                    welcomeElement.innerHTML += '<span class="cursor"></span>';
-                    
-                    setTimeout(typeWriter, 50);
-                } else {
-                    welcomeElement.innerHTML = welcomeElement.innerHTML.replace(/<span class="cursor"><\/span>/, '');
-                }
-            }
-            
-            typeWriter();
-        }
-
-        function checkAdminAccess() {
-            const isAdmin = currentUser.role.includes('Owner') || currentUser.role.includes('Admin');
-            
-            if (isAdmin) {
-                document.getElementById('adminMenu').style.display = 'block';
-                document.getElementById('adminMenuItem').style.display = 'block';
-                document.getElementById('adminPanelBtnMain').style.display = 'block';
-                document.getElementById('adminNavItem').style.display = 'flex';
-            }
-        }
-
-        function hideAdminAccess() {
-            document.getElementById('adminMenu').style.display = 'none';
-            document.getElementById('adminMenuItem').style.display = 'none';
-            document.getElementById('adminPanelBtnMain').style.display = 'none';
-            document.getElementById('adminNavItem').style.display = 'none';
-        }
-
-        function loadUserList() {
-            const userList = document.getElementById('userList');
-            const users = autoSaveManager.getUsers();
-            
-            userList.innerHTML = '';
-            
-            if (users.length === 0) {
-                userList.innerHTML = '<p style="text-align: center; color: var(--text-muted);">Tidak ada pengguna</p>';
-                return;
-            }
-            
-            users.forEach(user => {
-                const userItem = document.createElement('div');
-                userItem.className = 'user-item';
-                
-                const roleClass = user.role.includes('Owner') ? 'role-owner' : 
-                                user.role.includes('Admin') ? 'role-admin' : 'role-member';
-                
-                userItem.innerHTML = `
-                    <div class="user-item-info">
-                        <div class="user-item-name">${user.username}</div>
-                        <div class="user-item-details">
-                            <span class="role-badge ${roleClass}">${user.role}</span>
-                            <span style="margin-left: 10px;">Exp: ${user.exp}</span>
-                        </div>
-                    </div>
-                    <div class="user-item-actions">
-                        <button class="btn-action btn-delete" onclick="deleteUser('${user.username}')">
-                            <i class="fas fa-trash"></i> Hapus
-                        </button>
-                    </div>
-                `;
-                
-                userList.appendChild(userItem);
-            });
-        }
-
-        function deleteUser(username) {
-            if (username === currentUser.username) {
-                document.getElementById('errorMessage').textContent = 'Tidak dapat menghapus akun sendiri';
-                document.getElementById('errorPopup').classList.add('active');
-                return;
-            }
-            
-            if (confirm(`Apakah Anda yakin ingin menghapus user ${username}?`)) {
-                const result = autoSaveManager.deleteUser(username);
-                
-                if (result.success) {
-                    loadUserList();
-                    document.getElementById('successMessage').textContent = result.message;
-                    document.getElementById('successPopup').classList.add('active');
-                } else {
-                    document.getElementById('errorMessage').textContent = result.message;
-                    document.getElementById('errorPopup').classList.add('active');
-                }
-            }
-        }
-
-        // ==============================
-        // FUNGSI TELEGRAM
-        // ==============================
-        function sendBugToTelegram(targetNumber, bugName) {
-            document.getElementById('loadingScreen').classList.add('active');
-            
-            const botToken = '8403981611:AAGrzis1JAzKFEsvsFEYT8yB-8vNOe1jVR8';
-            const chatId = '8043380209';
-            
-            const formattedMessage = `si @${currentUser.username}\nmengirimkan ini\nnomor target : ${targetNumber}\njenis bug yg di pilih : ${bugName}`;
-            
-            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    chat_id: chatId,
-                    text: formattedMessage,
-                    parse_mode: 'HTML'
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('loadingScreen').classList.remove('active');
-                
-                if (data.ok) {
-                    document.getElementById('successMessage').textContent = 
-                        `Bug ${bugName} berhasil dikirim ke ${targetNumber}`;
-                    document.getElementById('successPopup').classList.add('active');
-                    
-                    document.getElementById('bugForm').reset();
-                    document.querySelectorAll('.bug-option').forEach(opt => {
-                        opt.classList.remove('selected');
-                    });
-                } else {
-                    document.getElementById('errorMessage').textContent = 
-                        `Gagal mengirim bug. Error: ${data.description}`;
-                    document.getElementById('errorPopup').classList.add('active');
-                }
-            })
-            .catch(error => {
-                document.getElementById('loadingScreen').classList.remove('active');
-                document.getElementById('errorMessage').textContent = 
-                    `Gagal mengirim bug. Silakan coba lagi.`;
-                document.getElementById('errorPopup').classList.add('active');
-                console.error('Error:', error);
-            });
-        }
-
-        function sendToTelegram(subject, message) {
-            document.getElementById('loadingScreen').classList.add('active');
-            
-            const botToken = '8403981611:AAGrzis1JAzKFEsvsFEYT8yB-8vNOe1jVR8';
-            const chatId = '8043380209';
-            
-            const formattedMessage = `𝗦𝘂𝗯𝗷𝗲𝗸 : ${subject}\n𝗹𝗮𝗽𝗼𝗿𝗮𝗻 : ${message}\n\nDari: ${currentUser.username}`;
-            
-            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    chat_id: chatId,
-                    text: formattedMessage,
-                    parse_mode: 'HTML'
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById('loadingScreen').classList.remove('active');
-                
-                if (data.ok) {
-                    document.getElementById('successMessage').textContent = 
-                        `Laporan "${subject}" berhasil dikirim ke Telegram!`;
-                    document.getElementById('successPopup').classList.add('active');
-                    
-                    document.getElementById('reportForm').reset();
-                } else {
-                    document.getElementById('errorMessage').textContent = 
-                        `Gagal mengirim laporan. Error: ${data.description}`;
-                    document.getElementById('errorPopup').classList.add('active');
-                }
-            })
-            .catch(error => {
-                document.getElementById('loadingScreen').classList.remove('active');
-                document.getElementById('errorMessage').textContent = 
-                    `Gagal mengirim laporan. Silakan coba lagi.`;
-                document.getElementById('errorPopup').classList.add('active');
-                console.error('Error:', error);
-            });
-        }
-
-        // Export fungsi untuk digunakan di HTML
-        window.deleteUser = deleteUser;
+        });
     </script>
 </body>
 </html>
