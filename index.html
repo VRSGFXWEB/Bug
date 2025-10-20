@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ONYXBUGZ - Bug Reporting System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Menambahkan font Orbitron -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary-color: #8a2be2;
@@ -20,13 +22,14 @@
             --gold-color: #ffd700;
             --silver-color: #c0c0c0;
             --bronze-color: #cd7f32;
+            --neon-glow: 0 0 10px rgba(138, 43, 226, 0.7), 0 0 20px rgba(138, 43, 226, 0.5), 0 0 30px rgba(138, 43, 226, 0.3);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Orbitron', sans-serif;
         }
 
         body {
@@ -96,6 +99,7 @@
             color: var(--primary-color);
             letter-spacing: 2px;
             margin-bottom: 0.5rem;
+            text-shadow: var(--neon-glow);
         }
 
         .sidebar-tagline {
@@ -143,6 +147,7 @@
             background: rgba(138, 43, 226, 0.1);
             color: var(--primary-color);
             border-left: 3px solid var(--primary-color);
+            text-shadow: 0 0 5px rgba(138, 43, 226, 0.7);
         }
 
         .sidebar-menu i {
@@ -226,6 +231,7 @@
             color: var(--primary-color);
             background: rgba(138, 43, 226, 0.2);
             transform: scale(1.05);
+            text-shadow: 0 0 5px rgba(138, 43, 226, 0.7);
         }
 
         .profile-container {
@@ -276,6 +282,7 @@
             overflow: hidden;
             border: 2px solid var(--primary-color);
             position: relative;
+            box-shadow: var(--neon-glow);
         }
 
         .profile-pic::after {
@@ -314,6 +321,7 @@
             transform: translateY(-10px);
             transition: all 0.3s ease;
             z-index: 101;
+            box-shadow: var(--neon-glow);
         }
 
         .profile-dropdown.active {
@@ -340,6 +348,7 @@
         .profile-name {
             font-weight: 600;
             color: var(--primary-color);
+            text-shadow: 0 0 5px rgba(138, 43, 226, 0.7);
         }
 
         .profile-menu {
@@ -381,6 +390,7 @@
         .profile-menu a:hover {
             color: var(--primary-color);
             background: rgba(138, 43, 226, 0.1);
+            text-shadow: 0 0 5px rgba(138, 43, 226, 0.7);
         }
 
         /* Halaman Login */
@@ -410,7 +420,7 @@
             transition: transform 0.5s ease;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: var(--neon-glow);
         }
 
         .login-card::before {
@@ -437,7 +447,7 @@
             color: var(--primary-color);
             letter-spacing: 3px;
             margin-bottom: 1.5rem;
-            text-shadow: 0 0 15px rgba(138, 43, 226, 0.5);
+            text-shadow: var(--neon-glow);
         }
 
         .login-form {
@@ -471,7 +481,7 @@
         input:focus, textarea:focus, select:focus {
             outline: none;
             border-color: var(--primary-color);
-            box-shadow: 0 0 0 2px rgba(138, 43, 226, 0.3);
+            box-shadow: 0 0 0 2px rgba(138, 43, 226, 0.3), 0 0 10px rgba(138, 43, 226, 0.5);
         }
 
         .login-btn {
@@ -487,6 +497,7 @@
             margin-top: 1rem;
             position: relative;
             overflow: hidden;
+            text-shadow: 0 0 5px rgba(138, 43, 226, 0.7);
         }
 
         .login-btn::before {
@@ -506,7 +517,7 @@
 
         .login-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4), var(--neon-glow);
         }
 
         .login-btn:active {
@@ -545,6 +556,7 @@
             animation: spin 1s linear infinite;
             margin-bottom: 2rem;
             position: relative;
+            box-shadow: var(--neon-glow);
         }
 
         .loading-spinner::before {
@@ -563,6 +575,7 @@
         .loading-text {
             font-size: 1.2rem;
             color: var(--primary-color);
+            text-shadow: 0 0 5px rgba(138, 43, 226, 0.7);
         }
 
         /* Halaman Utama */
@@ -596,12 +609,13 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            text-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
+            text-shadow: var(--neon-glow);
         }
 
         .skull-icon {
             font-size: 2.5rem;
             color: var(--primary-color);
+            text-shadow: var(--neon-glow);
         }
 
         .tagline {
@@ -650,7 +664,7 @@
 
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), var(--neon-glow);
         }
 
         /* Tombol dengan efek ungu */
@@ -671,6 +685,7 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            text-shadow: 0 0 5px rgba(138, 43, 226, 0.7);
         }
 
         .btn-send::before, .btn-report::before {
@@ -690,7 +705,7 @@
 
         .btn-send:hover, .btn-report:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4), var(--neon-glow);
         }
 
         .btn-send:active, .btn-report:active {
@@ -747,6 +762,7 @@
             background-color: var(--primary-color);
             margin-left: 2px;
             animation: blink 1s infinite;
+            box-shadow: 0 0 5px var(--primary-color);
         }
 
         /* Informasi Pengguna */
@@ -787,7 +803,7 @@
 
         .user-card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), var(--neon-glow);
         }
 
         .user-header {
@@ -801,6 +817,7 @@
             font-size: 1.2rem;
             font-weight: 600;
             color: var(--primary-color);
+            text-shadow: 0 0 5px rgba(138, 43, 226, 0.7);
         }
 
         .user-badge {
@@ -839,16 +856,19 @@
         .exp-permanent {
             color: #90ee90;
             font-weight: 600;
+            text-shadow: 0 0 5px rgba(144, 238, 144, 0.7);
         }
 
         .exp-limited {
             color: #ffcc00;
             font-weight: 600;
+            text-shadow: 0 0 5px rgba(255, 204, 0, 0.7);
         }
 
         .crown-icon {
             color: var(--gold-color);
             margin-left: 5px;
+            text-shadow: 0 0 5px rgba(255, 215, 0, 0.7);
         }
 
         /* Audio Player - Layout Baru */
@@ -861,6 +881,7 @@
             color: var(--primary-color);
             margin-bottom: 1rem;
             text-align: center;
+            text-shadow: 0 0 5px rgba(138, 43, 226, 0.7);
         }
 
         .audio-container {
@@ -912,6 +933,7 @@
             position: relative;
             overflow: hidden;
             flex-shrink: 0;
+            text-shadow: 0 0 5px rgba(138, 43, 226, 0.7);
         }
 
         .play-btn::before {
@@ -931,7 +953,7 @@
 
         .play-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4), var(--neon-glow);
         }
 
         .play-btn:active {
@@ -956,6 +978,7 @@
             background: linear-gradient(to top, var(--primary-color), var(--accent-color));
             border-radius: 3px;
             transition: height 0.2s ease;
+            box-shadow: 0 0 5px rgba(138, 43, 226, 0.7);
         }
 
         /* Foto Profil di Halaman Bug */
@@ -972,7 +995,7 @@
             overflow: hidden;
             border: 3px solid var(--primary-color);
             position: relative;
-            box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+            box-shadow: var(--neon-glow);
         }
 
         .bug-profile-pic::before {
@@ -1037,12 +1060,13 @@
             background: rgba(138, 43, 226, 0.1);
             border-color: var(--primary-color);
             transform: translateX(5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2), var(--neon-glow);
         }
 
         .bug-option.selected {
             background: rgba(138, 43, 226, 0.2);
             border-color: var(--primary-color);
+            box-shadow: var(--neon-glow);
         }
 
         .bug-icon {
@@ -1056,6 +1080,7 @@
             margin-right: 1rem;
             font-size: 1.2rem;
             color: var(--primary-color);
+            box-shadow: 0 0 5px rgba(138, 43, 226, 0.7);
         }
 
         .bug-info {
@@ -1066,6 +1091,7 @@
             font-weight: 600;
             color: var(--primary-color);
             margin-bottom: 0.2rem;
+            text-shadow: 0 0 5px rgba(138, 43, 226, 0.7);
         }
 
         .bug-desc {
@@ -1078,6 +1104,7 @@
             font-size: 1.2rem;
             opacity: 0;
             transition: opacity 0.3s ease;
+            text-shadow: 0 0 5px rgba(138, 43, 226, 0.7);
         }
 
         .bug-option.selected .bug-check {
@@ -1094,6 +1121,7 @@
             margin-bottom: 1.5rem;
             color: var(--primary-color);
             font-size: 1.5rem;
+            text-shadow: 0 0 5px rgba(138, 43, 226, 0.7);
         }
 
         textarea {
@@ -1165,7 +1193,7 @@
             border: 1px solid var(--border-color);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: var(--neon-glow);
         }
 
         .modal-content::before {
@@ -1200,6 +1228,7 @@
         .modal-title {
             color: var(--primary-color);
             font-size: 1.3rem;
+            text-shadow: 0 0 5px rgba(138, 43, 226, 0.7);
         }
 
         .close-modal {
@@ -1213,6 +1242,7 @@
 
         .close-modal:hover {
             color: var(--primary-color);
+            text-shadow: 0 0 5px rgba(138, 43, 226, 0.7);
         }
 
         .profile-preview {
@@ -1227,7 +1257,7 @@
             overflow: hidden;
             border: 3px solid var(--primary-color);
             position: relative;
-            box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+            box-shadow: var(--neon-glow);
         }
 
         .profile-preview::before {
@@ -1267,6 +1297,7 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            text-shadow: 0 0 5px rgba(138, 43, 226, 0.7);
         }
 
         .upload-btn::before {
@@ -1286,7 +1317,7 @@
 
         .upload-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4), var(--neon-glow);
         }
 
         /* Popup notifikasi */
@@ -1323,7 +1354,7 @@
             border: 1px solid var(--border-color);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: var(--neon-glow);
         }
 
         .popup-content::before {
@@ -1352,17 +1383,20 @@
             font-size: 4rem;
             color: #90ee90;
             margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(144, 238, 144, 0.7);
         }
 
         .error-icon {
             font-size: 4rem;
             color: #ff6b6b;
             margin-bottom: 1rem;
+            text-shadow: 0 0 10px rgba(255, 107, 107, 0.7);
         }
 
         .popup h2 {
             color: #90ee90;
             margin-bottom: 1rem;
+            text-shadow: 0 0 5px rgba(144, 238, 144, 0.7);
         }
 
         .popup p {
@@ -1381,6 +1415,7 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            text-shadow: 0 0 5px rgba(138, 43, 226, 0.7);
         }
 
         .btn-ok::before {
@@ -1400,7 +1435,7 @@
 
         .btn-ok:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4), var(--neon-glow);
         }
 
         /* Navigasi bawah */
@@ -1455,6 +1490,7 @@
         .nav-item.active, .nav-item:hover {
             color: var(--primary-color);
             background: rgba(138, 43, 226, 0.1);
+            text-shadow: 0 0 5px rgba(138, 43, 226, 0.7);
         }
 
         /* Animasi */
@@ -1548,6 +1584,7 @@
             border: 4px solid rgba(138, 43, 226, 0.3);
             border-top: 4px solid var(--primary-color);
             animation: spin 1s linear infinite;
+            box-shadow: var(--neon-glow);
         }
 
         .login-loading-text {
@@ -1555,6 +1592,7 @@
             margin-top: 10px;
             color: var(--primary-color);
             font-size: 0.9rem;
+            text-shadow: 0 0 5px rgba(138, 43, 226, 0.7);
         }
 
         /* Login Error Message */
@@ -1564,6 +1602,7 @@
             margin-top: 0.5rem;
             text-align: center;
             display: none;
+            text-shadow: 0 0 5px rgba(255, 107, 107, 0.7);
         }
 
         .login-error.active {
@@ -1614,6 +1653,7 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            text-shadow: 0 0 5px rgba(37, 211, 102, 0.7);
         }
 
         .copy-btn::before {
@@ -1633,7 +1673,7 @@
 
         .copy-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4);
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.4), 0 0 10px rgba(37, 211, 102, 0.7);
         }
 
         .steps {
@@ -1661,6 +1701,7 @@
             justify-content: center;
             margin-right: 1rem;
             font-weight: bold;
+            box-shadow: 0 0 5px rgba(138, 43, 226, 0.7);
         }
 
         .whatsapp-logo {
@@ -1718,12 +1759,13 @@
             background: rgba(138, 43, 226, 0.1);
             border-color: var(--primary-color);
             transform: translateY(-5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2), var(--neon-glow);
         }
 
         .unband-option.selected {
             background: rgba(138, 43, 226, 0.2);
             border-color: var(--primary-color);
+            box-shadow: var(--neon-glow);
         }
 
         .unband-icon {
@@ -1737,12 +1779,14 @@
             margin-bottom: 0.5rem;
             font-size: 1.5rem;
             color: var(--primary-color);
+            box-shadow: 0 0 5px rgba(138, 43, 226, 0.7);
         }
 
         .unband-name {
             font-weight: 600;
             color: var(--primary-color);
             margin-bottom: 0.2rem;
+            text-shadow: 0 0 5px rgba(138, 43, 226, 0.7);
         }
 
         .unband-desc {
@@ -1765,6 +1809,7 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
+            text-shadow: 0 0 5px rgba(234, 67, 53, 0.7);
         }
 
         .gmail-btn::before {
@@ -1784,7 +1829,7 @@
 
         .gmail-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(234, 67, 53, 0.4);
+            box-shadow: 0 5px 15px rgba(234, 67, 53, 0.4), 0 0 10px rgba(234, 67, 53, 0.7);
         }
     </style>
 </head>
