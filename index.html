@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ONYXBUGZ - Bug By Vrs</title>
+    <title>ONYXBUGZ - Bug Reporting System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Menambahkan font Orbitron -->
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -22,7 +21,11 @@
             --gold-color: #ffd700;
             --silver-color: #c0c0c0;
             --bronze-color: #cd7f32;
-            --neon-glow: 0 0 10px rgba(138, 43, 226, 0.7), 0 0 20px rgba(138, 43, 226, 0.5), 0 0 30px rgba(138, 43, 226, 0.3);
+            --neon-glow: 0 0 5px rgba(138, 43, 226, 0.5), 0 0 10px rgba(138, 43, 226, 0.3);
+            --transition-smooth: 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transition-fast: 0.3s ease;
+            --online-color: #00ff00;
+            --offline-color: #ff0000;
         }
 
         * {
@@ -30,10 +33,11 @@
             padding: 0;
             box-sizing: border-box;
             font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
         }
 
         body {
-            background: var(--bg-dark);
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0a2e 100%);
             color: var(--text-color);
             min-height: 100vh;
             overflow-x: hidden;
@@ -48,6 +52,71 @@
             z-index: -1;
         }
 
+        /* Floating elements background */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .floating-element {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(138, 43, 226, 0.05);
+            animation: float 15s infinite linear;
+        }
+
+        .floating-element:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .floating-element:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            top: 60%;
+            left: 80%;
+            animation-delay: -5s;
+        }
+
+        .floating-element:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            top: 80%;
+            left: 20%;
+            animation-delay: -10s;
+        }
+
+        .floating-element:nth-child(4) {
+            width: 100px;
+            height: 100px;
+            top: 20%;
+            left: 70%;
+            animation-delay: -7s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.7;
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(0) rotate(360deg);
+                opacity: 0.7;
+            }
+        }
+
         /* Efek blur untuk latar login */
         .login-blur-bg {
             position: fixed;
@@ -60,7 +129,7 @@
             z-index: 998;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.5s ease;
+            transition: var(--transition-smooth);
         }
 
         .login-blur-bg.active {
@@ -76,11 +145,12 @@
             width: 300px;
             height: 100%;
             background: rgba(20, 5, 40, 0.95);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(20px);
             z-index: 1000;
-            transition: left 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            transition: var(--transition-smooth);
             border-right: 1px solid var(--border-color);
             overflow-y: auto;
+            box-shadow: 5px 0 30px rgba(0, 0, 0, 0.5);
         }
 
         .sidebar.active {
@@ -122,7 +192,7 @@
             padding: 1rem 1.5rem;
             color: var(--text-color);
             text-decoration: none;
-            transition: all 0.3s ease;
+            transition: var(--transition-smooth);
             border-left: 3px solid transparent;
             position: relative;
             overflow: hidden;
@@ -136,7 +206,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(138, 43, 226, 0.2), transparent);
-            transition: left 0.5s;
+            transition: var(--transition-smooth);
         }
 
         .sidebar-menu a:hover::before, .sidebar-menu a.active::before {
@@ -176,7 +246,7 @@
             z-index: 999;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.3s ease;
+            transition: var(--transition-smooth);
         }
 
         .sidebar-overlay.active {
@@ -195,16 +265,17 @@
             align-items: center;
             padding: 1rem 1.5rem;
             background: rgba(15, 5, 30, 0.9);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-color);
             z-index: 100;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
         }
 
         .menu-btn {
             font-size: 1.5rem;
             color: var(--text-color);
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: var(--transition-smooth);
             padding: 8px 12px;
             border-radius: 5px;
             background: rgba(138, 43, 226, 0.1);
@@ -220,7 +291,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(138, 43, 226, 0.3), transparent);
-            transition: left 0.5s;
+            transition: var(--transition-smooth);
         }
 
         .menu-btn:hover::before {
@@ -245,7 +316,7 @@
             cursor: pointer;
             padding: 5px 10px;
             border-radius: 20px;
-            transition: all 0.3s ease;
+            transition: var(--transition-smooth);
             position: relative;
             overflow: hidden;
         }
@@ -258,7 +329,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(138, 43, 226, 0.2), transparent);
-            transition: left 0.5s;
+            transition: var(--transition-smooth);
         }
 
         .profile-btn:hover::before {
@@ -311,7 +382,7 @@
             top: 100%;
             right: 0;
             background: rgba(30, 10, 50, 0.95);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(20px);
             border-radius: 10px;
             padding: 1rem;
             min-width: 200px;
@@ -319,7 +390,7 @@
             opacity: 0;
             visibility: hidden;
             transform: translateY(-10px);
-            transition: all 0.3s ease;
+            transition: var(--transition-smooth);
             z-index: 101;
             box-shadow: var(--neon-glow);
         }
@@ -365,7 +436,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            transition: all 0.3s ease;
+            transition: var(--transition-smooth);
             padding: 5px;
             border-radius: 5px;
             position: relative;
@@ -380,7 +451,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(138, 43, 226, 0.2), transparent);
-            transition: left 0.5s;
+            transition: var(--transition-smooth);
         }
 
         .profile-menu a:hover::before {
@@ -404,23 +475,23 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
+            transition: var(--transition-smooth);
         }
 
         .login-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(15px);
-            border-radius: 15px;
+            background: rgba(40, 10, 60, 0.8);
+            backdrop-filter: blur(30px);
+            border-radius: 20px;
             border: 1px solid var(--border-color);
             padding: 2.5rem;
             width: 90%;
             max-width: 400px;
             text-align: center;
             transform: translateY(0);
-            transition: transform 0.5s ease;
+            transition: var(--transition-smooth);
             position: relative;
             overflow: hidden;
-            box-shadow: var(--neon-glow);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), var(--neon-glow);
         }
 
         .login-card::before {
@@ -475,7 +546,7 @@
             border-radius: 8px;
             color: var(--text-color);
             font-size: 1rem;
-            transition: all 0.3s ease;
+            transition: var(--transition-smooth);
         }
 
         input:focus, textarea:focus, select:focus {
@@ -493,7 +564,7 @@
             font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: var(--transition-smooth);
             margin-top: 1rem;
             position: relative;
             overflow: hidden;
@@ -508,7 +579,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
+            transition: var(--transition-smooth);
         }
 
         .login-btn:hover::before {
@@ -539,7 +610,7 @@
             z-index: 999;
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.5s ease;
+            transition: var(--transition-smooth);
         }
 
         .loading-screen.active {
@@ -582,7 +653,7 @@
         .main-content {
             opacity: 0;
             visibility: hidden;
-            transition: opacity 0.8s ease;
+            transition: var(--transition-smooth);
             padding-top: 80px;
             min-height: 100vh;
         }
@@ -632,16 +703,16 @@
         }
 
         .card {
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
+            background: rgba(40, 10, 60, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
             border: 1px solid var(--border-color);
             padding: 2rem;
             margin-bottom: 2rem;
-            transition: transform 0.3s ease;
+            transition: var(--transition-smooth);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
         .card::before {
@@ -664,7 +735,7 @@
 
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4), var(--neon-glow);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), var(--neon-glow);
         }
 
         /* Tombol dengan efek ungu */
@@ -673,7 +744,7 @@
             padding: 15px;
             background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             color: #f0f0f0;
             font-size: 1.1rem;
             font-weight: 600;
@@ -682,7 +753,7 @@
             justify-content: center;
             align-items: center;
             gap: 10px;
-            transition: all 0.3s ease;
+            transition: var(--transition-smooth);
             position: relative;
             overflow: hidden;
             text-shadow: 0 0 5px rgba(138, 43, 226, 0.7);
@@ -696,7 +767,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
+            transition: var(--transition-smooth);
         }
 
         .btn-send:hover::before, .btn-report:hover::before {
@@ -724,12 +795,12 @@
             margin: 2rem 0;
             padding: 1.5rem;
             background: rgba(138, 43, 226, 0.05);
-            border-radius: 10px;
+            border-radius: 15px;
             border-left: 3px solid var(--primary-color);
             animation: fadeIn 1s ease-out;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
         }
 
         .welcome-message::before {
@@ -771,16 +842,16 @@
         }
 
         .user-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
+            background: rgba(40, 10, 60, 0.8);
+            backdrop-filter: blur(20px);
             border-radius: 15px;
             border: 1px solid var(--border-color);
             padding: 1.5rem;
             margin-bottom: 1rem;
-            transition: transform 0.3s ease;
+            transition: var(--transition-smooth);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
         }
 
         .user-card::before {
@@ -803,7 +874,7 @@
 
         .user-card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3), var(--neon-glow);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3), var(--neon-glow);
         }
 
         .user-header {
@@ -889,14 +960,14 @@
             align-items: center;
             justify-content: space-between;
             gap: 1rem;
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
+            background: rgba(40, 10, 60, 0.8);
+            backdrop-filter: blur(20px);
             border-radius: 15px;
             border: 1px solid var(--border-color);
             padding: 1.5rem;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
         }
 
         .audio-container::before {
@@ -921,7 +992,7 @@
             padding: 12px 25px;
             background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             color: #f0f0f0;
             font-size: 1rem;
             font-weight: 600;
@@ -929,7 +1000,7 @@
             display: flex;
             align-items: center;
             gap: 10px;
-            transition: all 0.3s ease;
+            transition: var(--transition-smooth);
             position: relative;
             overflow: hidden;
             flex-shrink: 0;
@@ -944,7 +1015,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
+            transition: var(--transition-smooth);
         }
 
         .play-btn:hover::before {
@@ -1035,7 +1106,7 @@
             background: rgba(255, 255, 255, 0.05);
             border-radius: 10px;
             border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
+            transition: var(--transition-smooth);
             cursor: pointer;
             position: relative;
             overflow: hidden;
@@ -1049,7 +1120,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(138, 43, 226, 0.1), transparent);
-            transition: left 0.5s;
+            transition: var(--transition-smooth);
         }
 
         .bug-option:hover::before {
@@ -1103,7 +1174,7 @@
             color: var(--primary-color);
             font-size: 1.2rem;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: var(--transition-smooth);
             text-shadow: 0 0 5px rgba(138, 43, 226, 0.7);
         }
 
@@ -1160,6 +1231,15 @@
             }
         }
 
+        @keyframes rotate {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
         /* Modal untuk upload foto profil */
         .modal {
             position: fixed;
@@ -1174,7 +1254,7 @@
             z-index: 102;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.3s ease;
+            transition: var(--transition-smooth);
         }
 
         .modal.active {
@@ -1189,7 +1269,7 @@
             max-width: 400px;
             width: 90%;
             transform: scale(0.7);
-            transition: transform 0.3s ease;
+            transition: var(--transition-smooth);
             border: 1px solid var(--border-color);
             position: relative;
             overflow: hidden;
@@ -1237,7 +1317,7 @@
             color: var(--text-color);
             font-size: 1.5rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: var(--transition-smooth);
         }
 
         .close-modal:hover {
@@ -1294,7 +1374,7 @@
             cursor: pointer;
             text-align: center;
             margin-top: 1rem;
-            transition: all 0.3s ease;
+            transition: var(--transition-smooth);
             position: relative;
             overflow: hidden;
             text-shadow: 0 0 5px rgba(138, 43, 226, 0.7);
@@ -1308,7 +1388,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
+            transition: var(--transition-smooth);
         }
 
         .upload-btn:hover::before {
@@ -1334,7 +1414,7 @@
             z-index: 100;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.3s ease;
+            transition: var(--transition-smooth);
         }
 
         .popup.active {
@@ -1350,7 +1430,7 @@
             max-width: 400px;
             width: 90%;
             transform: scale(0.7);
-            transition: transform 0.3s ease;
+            transition: var(--transition-smooth);
             border: 1px solid var(--border-color);
             position: relative;
             overflow: hidden;
@@ -1412,7 +1492,7 @@
             color: #f0f0f0;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: var(--transition-smooth);
             position: relative;
             overflow: hidden;
             text-shadow: 0 0 5px rgba(138, 43, 226, 0.7);
@@ -1426,7 +1506,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
+            transition: var(--transition-smooth);
         }
 
         .btn-ok:hover::before {
@@ -1445,12 +1525,21 @@
             left: 0;
             width: 100%;
             background: rgba(20, 5, 40, 0.9);
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(20px);
             display: flex;
             justify-content: space-around;
             padding: 10px 0;
             border-top: 1px solid var(--border-color);
             z-index: 10;
+            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition-smooth);
+        }
+
+        .bottom-nav.active {
+            opacity: 1;
+            visibility: visible;
         }
 
         .nav-item {
@@ -1459,7 +1548,7 @@
             align-items: center;
             color: var(--text-muted);
             font-size: 0.8rem;
-            transition: all 0.3s ease;
+            transition: var(--transition-smooth);
             cursor: pointer;
             padding: 5px 10px;
             border-radius: 5px;
@@ -1475,7 +1564,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(138, 43, 226, 0.2), transparent);
-            transition: left 0.5s;
+            transition: var(--transition-smooth);
         }
 
         .nav-item:hover::before, .nav-item.active::before {
@@ -1650,7 +1739,7 @@
             cursor: pointer;
             text-align: center;
             margin-top: 1rem;
-            transition: all 0.3s ease;
+            transition: var(--transition-smooth);
             position: relative;
             overflow: hidden;
             text-shadow: 0 0 5px rgba(37, 211, 102, 0.7);
@@ -1664,7 +1753,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
+            transition: var(--transition-smooth);
         }
 
         .copy-btn:hover::before {
@@ -1733,7 +1822,7 @@
             background: rgba(255, 255, 255, 0.05);
             border-radius: 10px;
             border: 1px solid var(--border-color);
-            transition: all 0.3s ease;
+            transition: var(--transition-smooth);
             cursor: pointer;
             text-align: center;
             position: relative;
@@ -1748,7 +1837,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(138, 43, 226, 0.1), transparent);
-            transition: left 0.5s;
+            transition: var(--transition-smooth);
         }
 
         .unband-option:hover::before {
@@ -1806,7 +1895,7 @@
             cursor: pointer;
             text-align: center;
             margin-top: 1rem;
-            transition: all 0.3s ease;
+            transition: var(--transition-smooth);
             position: relative;
             overflow: hidden;
             text-shadow: 0 0 5px rgba(234, 67, 53, 0.7);
@@ -1820,7 +1909,7 @@
             width: 100%;
             height: 100%;
             background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s;
+            transition: var(--transition-smooth);
         }
 
         .gmail-btn:hover::before {
@@ -1831,14 +1920,338 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(234, 67, 53, 0.4), 0 0 10px rgba(234, 67, 53, 0.7);
         }
+
+        /* Efek cahaya mengelilingi tombol dan elemen */
+        .glow-effect {
+            position: relative;
+        }
+
+        .glow-effect::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color), var(--primary-color));
+            border-radius: inherit;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .glow-effect:hover::after {
+            opacity: 1;
+        }
+
+        /* Notifikasi selamat datang */
+        .welcome-notification {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: rgba(40, 10, 60, 0.9);
+            backdrop-filter: blur(20px);
+            border-radius: 10px;
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--neon-glow);
+            z-index: 99;
+            transform: translateX(120%);
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            max-width: 300px;
+        }
+
+        .welcome-notification.active {
+            transform: translateX(0);
+        }
+
+        .welcome-notification h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 5px rgba(138, 43, 226, 0.7);
+        }
+
+        .welcome-notification p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Indikator status online/offline */
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-left: 10px;
+        }
+
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .status-online {
+            background-color: var(--online-color);
+            box-shadow: 0 0 5px var(--online-color);
+        }
+
+        .status-offline {
+            background-color: var(--offline-color);
+            box-shadow: 0 0 5px var(--offline-color);
+        }
+
+        /* Tombol beli akses key */
+        .buy-access {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 1rem;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+            text-shadow: 0 0 5px rgba(138, 43, 226, 0.7);
+        }
+
+        .buy-access::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: var(--transition-smooth);
+        }
+
+        .buy-access:hover::before {
+            left: 100%;
+        }
+
+        .buy-access:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(138, 43, 226, 0.4), var(--neon-glow);
+        }
+
+        /* Efek blur untuk latar belakang login */
+        .login-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://files.catbox.moe/njowmb.jpg') center/cover no-repeat;
+            filter: blur(10px);
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        /* Bot Offline Warning */
+        .bot-offline-warning {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255, 0, 0, 0.1);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+            margin: 1rem 0;
+            color: #ff6b6b;
+            text-shadow: 0 0 5px rgba(255, 107, 107, 0.7);
+        }
+
+        .bot-offline-warning i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Disabled state for bot offline */
+        .bot-offline .bug-option,
+        .bot-offline .btn-send,
+        .bot-offline .unband-option,
+        .bot-offline .copy-btn,
+        .bot-offline .gmail-btn {
+            opacity: 0.5;
+            pointer-events: none;
+            cursor: not-allowed;
+        }
+
+        /* New Layout for Login */
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-icon {
+            font-size: 4rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            text-shadow: var(--neon-glow);
+        }
+
+        .login-subtitle {
+            color: var(--text-muted);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Status Bot Indicator */
+        .bot-status {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 1rem 0;
+            padding: 10px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .bot-status.online {
+            background: rgba(0, 255, 0, 0.1);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+        }
+
+        .bot-status.offline {
+            background: rgba(255, 0, 0, 0.1);
+            border: 1px solid rgba(255, 0, 0, 0.3);
+        }
+
+        .bot-status-text {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .bot-status.online .bot-status-text {
+            color: var(--online-color);
+            text-shadow: 0 0 5px rgba(0, 255, 0, 0.7);
+        }
+
+        .bot-status.offline .bot-status-text {
+            color: var(--offline-color);
+            text-shadow: 0 0 5px rgba(255, 0, 0, 0.7);
+        }
+
+        /* New Card Design */
+        .feature-card {
+            background: rgba(40, 10, 60, 0.8);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(138, 43, 226, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: reflect 8s infinite linear;
+            z-index: 0;
+        }
+
+        .feature-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), var(--neon-glow);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            text-shadow: var(--neon-glow);
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            text-shadow: 0 0 5px rgba(138, 43, 226, 0.7);
+        }
+
+        .feature-description {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        /* Grid Layout for Features */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        /* Enhanced Header */
+        .main-header {
+            text-align: center;
+            padding: 2rem 0;
+            background: rgba(20, 5, 40, 0.5);
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .main-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(138, 43, 226, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: reflect 10s infinite linear;
+            z-index: 0;
+        }
+
+        .main-header > * {
+            position: relative;
+            z-index: 1;
+        }
     </style>
 </head>
 <body>
     <!-- Animasi Partikel Latar Belakang -->
     <div id="particles-js"></div>
+    
+    <!-- Floating Elements -->
+    <div class="floating-elements">
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+        <div class="floating-element"></div>
+    </div>
 
     <!-- Efek blur untuk latar login -->
     <div class="login-blur-bg" id="loginBlurBg"></div>
+
+    <!-- Notifikasi Selamat Datang -->
+    <div class="welcome-notification" id="welcomeNotification">
+        <h3 id="welcomeTitle">Halo Selamat Datang!</h3>
+        <p id="welcomeMessage">Bot sudah dapat di gunakan tuan (online)</p>
+    </div>
 
     <!-- Sidebar Menu -->
     <div class="sidebar" id="sidebar">
@@ -1908,8 +2321,22 @@
 
     <!-- Halaman Login -->
     <div class="login-container" id="loginContainer">
+        <div class="login-background"></div>
         <div class="login-card">
-            <div class="login-logo">ONYXBUGZ</div>
+            <div class="login-header">
+                <div class="login-icon">
+                    <i class="fas fa-skull"></i>
+                </div>
+                <div class="login-logo">ONYXBUGZ</div>
+                <div class="login-subtitle">Jalankan aksimu tuan 😝</div>
+            </div>
+            
+            <!-- Status Bot di Halaman Login -->
+            <div class="bot-status online" id="loginBotStatus">
+                <i class="fas fa-circle"></i>
+                <span class="bot-status-text">Status: ONLINE</span>
+            </div>
+            
             <form class="login-form" id="loginForm">
                 <div class="form-group">
                     <label for="loginUsername">Username</label>
@@ -1922,6 +2349,11 @@
                 <div class="login-error" id="loginError">Username atau password salah!</div>
                 <button type="submit" class="login-btn">MASUK</button>
             </form>
+            
+            <!-- Tombol beli akses key -->
+            <a href="https://t.me/Central_vex" class="buy-access" target="_blank">
+                <i class="fas fa-key"></i> Beli Akses Key
+            </a>
             
             <!-- Loading Spinner untuk Login -->
             <div class="login-loading" id="loginLoading">
@@ -1940,12 +2372,18 @@
     <!-- Halaman Utama -->
     <div class="main-content" id="mainContent">
         <!-- Header -->
-        <header>
+        <header class="main-header">
             <div class="logo">
                 <i class="fas fa-skull skull-icon"></i>
                 ONYXBUGZ
             </div>
             <div class="tagline">Jalan kan aksimu tuan 😜👈🏻</div>
+            
+            <!-- Status Bot -->
+            <div class="bot-status online" id="mainBotStatus">
+                <i class="fas fa-circle"></i>
+                <span class="bot-status-text">Status: ONLINE</span>
+            </div>
         </header>
 
         <!-- Halaman Home -->
@@ -1964,31 +2402,52 @@
                     </div>
                 </div>
                 
-                <!-- Audio Player - Layout Baru -->
+                <!-- Fitur Utama -->
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-skull"></i>
+                        </div>
+                        <h3 class="feature-title">Kirim Bug</h3>
+                        <p class="feature-description">Kirim berbagai jenis bug ke target dengan mudah dan cepat.</p>
+                        <button class="btn-send glow-effect" data-page="bugPage">
+                            <i class="fas fa-skull"></i> Kirim Bug
+                        </button>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <h3 class="feature-title">WhatsApp Unband</h3>
+                        <p class="feature-description">Bantu membuka blokir akun WhatsApp yang terkena banned.</p>
+                        <button class="btn-send glow-effect" data-page="whatsappPage">
+                            <i class="fab fa-whatsapp"></i> WhatsApp Unband
+                        </button>
+                    </div>
+                    
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <h3 class="feature-title">Kirim Laporan</h3>
+                        <p class="feature-description">Laporkan masalah atau berikan saran untuk pengembangan.</p>
+                        <button class="btn-send glow-effect" data-page="reportPage">
+                            <i class="fas fa-envelope"></i> Kirim Laporan
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Audio Player -->
                 <div class="audio-player">
                     <h3 class="audio-title">Play Sound</h3>
                     <div class="audio-container">
-                        <button class="play-btn" id="playSoundBtn">
+                        <button class="play-btn glow-effect" id="playSoundBtn">
                             <i class="fas fa-play"></i> Putar Suara
                         </button>
                         <div class="visualizer" id="visualizer">
                             <!-- Bar visualizer akan diisi oleh JavaScript -->
                         </div>
-                    </div>
-                </div>
-                
-                <div class="card">
-                    <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--primary-color);">Menu</h3>
-                    <div style="display: flex; flex-direction: column; gap: 1rem;">
-                        <button class="btn-send" data-page="bugPage">
-                            <i class="fas fa-skull"></i>Kirim bug
-                        </button>
-                        <button class="btn-send" data-page="whatsappPage">
-                            <i class="fab fa-whatsapp"></i>WhatsApp Unband
-                        </button>
-                        <button class="btn-send" data-page="reportPage">
-                            <i class="fas fa-envelope"></i>laporkan permasalahan
-                        </button>
                     </div>
                 </div>
             </div>
@@ -2004,6 +2463,14 @@
                         </div>
                     </div>
                     <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--primary-color);">jalankan aksimu🤭</h3>
+                    
+                    <!-- Bot Offline Warning -->
+                    <div class="bot-offline-warning" id="botOfflineWarning" style="display: none;">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>BOT SEDANG OFFLINE</h3>
+                        <p>MOHON KESABARAN NYA</p>
+                    </div>
+                    
                     <form id="bugForm">
                         <div class="form-group">
                             <label for="targetNumber">Nomor Target</label>
@@ -2017,7 +2484,7 @@
                             </div>
                         </div>
                         
-                        <button type="submit" class="btn-send">
+                        <button type="submit" class="btn-send glow-effect">
                             <i class="fas fa-skull"></i> KIRIM BUG
                         </button>
                     </form>
@@ -2033,6 +2500,13 @@
                         <i class="fab fa-whatsapp"></i>
                     </div>
                     <h3 style="text-align: center; margin-bottom: 1.5rem; color: var(--primary-color);">WhatsApp Unband</h3>
+                    
+                    <!-- Bot Offline Warning -->
+                    <div class="bot-offline-warning" id="whatsappOfflineWarning" style="display: none;">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <h3>BOT SEDANG OFFLINE</h3>
+                        <p>MOHON KESABARAN NYA</p>
+                    </div>
                     
                     <div class="form-group">
                         <label>Pilih Jenis Unband</label>
@@ -2060,7 +2534,7 @@
                             <p>DEAR WHATSAPP, KNP AKUN SAYA DI BLOKIR PADAHAL SAYA TIDAK SPAM DAN MELAKUKAN PELANGGARAN, MUNGKIN SISTEM WHATSAPP SEDANG EROR, TOLONG BANTUIN SECEPATNYA!, DAN BUAT AKUN SAYA AMAN AGAR TIDAK DAPAT TERKANA SPAM WHATSAPP SAYA SERING TERKENA SPAM PDAHAL SAYA TIDAK MELANGGAR KEBIJAKAN WHATSAPP, MOHON BANTUANNYA.</p>
                         </div>
                         
-                        <button class="copy-btn" id="copySpamText">
+                        <button class="copy-btn glow-effect" id="copySpamText">
                             <i class="fas fa-copy"></i> Salin Teks
                         </button>
                         
@@ -2084,7 +2558,7 @@
                             <input type="text" id="unbandNumber" placeholder="+62xxxxxxxxxx">
                         </div>
                         
-                        <button class="gmail-btn" id="openGmail">
+                        <button class="gmail-btn glow-effect" id="openGmail">
                             <i class="fas fa-envelope"></i> Kirim ke Gmail Support WhatsApp
                         </button>
                         
@@ -2118,7 +2592,7 @@
                                 <textarea id="reportMessage" placeholder="Tulis pesan laporan Anda di sini..." required></textarea>
                             </div>
                             
-                            <button type="submit" class="btn-report btn-telegram">
+                            <button type="submit" class="btn-report btn-telegram glow-effect">
                                 <i class="fab fa-telegram"></i> KIRIM KE TELEGRAM
                             </button>
                         </form>
@@ -2162,7 +2636,7 @@
     </div>
 
     <!-- Navigasi Bawah -->
-    <nav class="bottom-nav">
+    <nav class="bottom-nav" id="bottomNav">
         <div class="nav-item active" data-page="homePage">
             <i class="fas fa-home"></i>
             <span>Beranda</span>
@@ -2265,12 +2739,12 @@
             // ==============================
             // Tambahkan username, password, dan exp di sini
             const validCredentials = [
-                { username: "JANGAN CEMBURU", password: "BUG123", role: "member", exp: "3 minggu" },
+             { username: "JANGAN CEMBURU", password: "BUG123", role: "member", exp: "3 minggu" },
                 { username: "KEIYA", password: "KEIYAYA", role: "member", exp: "2 hari" }, 
-                { username: "Konarzx", password: "Konarzx gntng", role: "member", exp: "1 hari" },
+                { username: "Rizkyy", password: "rizky123", role: "member", exp: "5 hari" },
                 { username: "dikzstore", password: "dikzaja", role: "member", exp: "3 minggu" },
                 { username: "budud", password: "abahcombo", role: "Member", exp: "Permanen" },
-                { username: "fazx", password: "store", role: "Owner 3", exp: "Permanen" },
+                { username: "ferzz", password: "ferzz001", role: "Owner 3", exp: "Permanen" },
                 { username: "Vrshack777", password: "Vrs777", role: "Owner 1 👑", exp: "Permanen" },
                 { username: "Arief007", password: "Calonmenantu", role: "Owner 4", exp: "Permanen" },
                 { username: "gwehatmin55", password: "lukontl66", role: "Member", exp: "Permanen" },
@@ -2292,6 +2766,9 @@
                 role: "",
                 exp: ""
             };
+
+            // Status sender (ON/OFF) - Ubah di sini untuk mengatur status bot
+            let botStatus = "OFF"; // Ubah menjadi "OFF" untuk menguji status offline
 
             // Audio
             let audio = null;
@@ -2393,9 +2870,68 @@
                 }
             }
 
+            // STATUS BOT
+            function updateBotStatus() {
+                const loginBotStatus = document.getElementById('loginBotStatus');
+                const mainBotStatus = document.getElementById('mainBotStatus');
+                const botOfflineWarning = document.getElementById('botOfflineWarning');
+                const whatsappOfflineWarning = document.getElementById('whatsappOfflineWarning');
+                
+                if (botStatus === "ON") {
+                    loginBotStatus.className = 'bot-status online';
+                    loginBotStatus.querySelector('.bot-status-text').textContent = 'Status: ONLINE';
+                    mainBotStatus.className = 'bot-status online';
+                    mainBotStatus.querySelector('.bot-status-text').textContent = 'Status: ONLINE';
+                    
+                    // Sembunyikan peringatan offline
+                    botOfflineWarning.style.display = 'none';
+                    whatsappOfflineWarning.style.display = 'none';
+                    
+                    // Hapus kelas bot-offline
+                    document.getElementById('bugPage').classList.remove('bot-offline');
+                    document.getElementById('whatsappPage').classList.remove('bot-offline');
+                } else {
+                    loginBotStatus.className = 'bot-status offline';
+                    loginBotStatus.querySelector('.bot-status-text').textContent = 'Status: OFFLINE';
+                    mainBotStatus.className = 'bot-status offline';
+                    mainBotStatus.querySelector('.bot-status-text').textContent = 'Status: OFFLINE';
+                    
+                    // Tampilkan peringatan offline
+                    botOfflineWarning.style.display = 'block';
+                    whatsappOfflineWarning.style.display = 'block';
+                    
+                    // Tambahkan kelas bot-offline
+                    document.getElementById('bugPage').classList.add('bot-offline');
+                    document.getElementById('whatsappPage').classList.add('bot-offline');
+                }
+            }
+
+            // Fungsi untuk menampilkan notifikasi selamat datang
+            function showWelcomeNotification() {
+                const welcomeNotification = document.getElementById('welcomeNotification');
+                const welcomeTitle = document.getElementById('welcomeTitle');
+                const welcomeMessage = document.getElementById('welcomeMessage');
+                
+                if (botStatus === "ON") {
+                    welcomeTitle.textContent = 'Halo Selamat Datang!';
+                    welcomeMessage.textContent = `Halo selamat datang ${currentUser.username}, Bot sudah dapat di gunakan tuan (online)`;
+                } else {
+                    welcomeTitle.textContent = 'Halo Selamat Datang!';
+                    welcomeMessage.textContent = `Halo selamat datang ${currentUser.username}, Bot sedang offline tuan mohon kesabaran nya dahulu.`;
+                }
+                
+                welcomeNotification.classList.add('active');
+                
+                // Sembunyikan notifikasi setelah 5 detik
+                setTimeout(() => {
+                    welcomeNotification.classList.remove('active');
+                }, 5000);
+            }
+
             // Panggil fungsi untuk membuat opsi bug dan visualizer
             createBugOptions();
             createVisualizer();
+            updateBotStatus();
 
             // Toggle sidebar
             document.getElementById('menuBtn').addEventListener('click', function() {
@@ -2464,6 +3000,9 @@
                             document.getElementById('loginBlurBg').classList.remove('active');
                             document.getElementById('mainContent').classList.add('active');
                             
+                            // Tampilkan navigasi bawah
+                            document.getElementById('bottomNav').classList.add('active');
+                            
                             // Update profil dengan username
                             updateProfileDisplay();
                             
@@ -2472,6 +3011,9 @@
                             
                             // Tampilkan animasi teks welcome
                             typeWelcomeText();
+                            
+                            // Tampilkan notifikasi selamat datang
+                            showWelcomeNotification();
                         } else {
                             // Tampilkan pesan error
                             document.getElementById('loginError').classList.add('active');
@@ -2558,6 +3100,7 @@
                 
                 // Reset dan kembali ke halaman login
                 document.getElementById('mainContent').classList.remove('active');
+                document.getElementById('bottomNav').classList.remove('active');
                 document.getElementById('loginContainer').style.opacity = '1';
                 document.getElementById('loginContainer').style.visibility = 'visible';
                 document.getElementById('loginForm').reset();
@@ -2574,6 +3117,13 @@
             // Form bug submission
             document.getElementById('bugForm').addEventListener('submit', function(e) {
                 e.preventDefault();
+                
+                // Cek status bot
+                if (botStatus === "OFF") {
+                    document.getElementById('errorMessage').textContent = 'Gagal. Bot sedang Offline.';
+                    document.getElementById('errorPopup').classList.add('active');
+                    return;
+                }
                 
                 const targetNumber = document.getElementById('targetNumber').value;
                 const selectedBug = document.querySelector('.bug-option.selected');
@@ -2923,6 +3473,11 @@
                 // Tampilkan notifikasi sukses
                 document.getElementById('successMessage').textContent = 'Membuka aplikasi Gmail...';
                 document.getElementById('successPopup').classList.add('active');
+            });
+
+            // Tambahkan efek glow pada semua tombol
+            document.querySelectorAll('.btn-send, .btn-report, .play-btn, .copy-btn, .gmail-btn, .buy-access').forEach(btn => {
+                btn.classList.add('glow-effect');
             });
         });
     </script>
